@@ -1,4 +1,3 @@
-# pemoginns.xyz
+# pemoginns.github.io
 portfolio website
-test
-test
+I designed the whole thing using only html and bootstrap 
