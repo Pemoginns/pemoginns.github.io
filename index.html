@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Peter McGuinness</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Custom JS -->
+    <script src="java.js"></script>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .container {
+            margin-bottom: 20px;
+        }
+
+        .jumbotron {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h2, h4 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f5f5f5;
+        }
+
+        a {
+            color: #64b5f6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Profile Image */
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: auto;
+            display: block;
+            border: 5px solid #64b5f6;
+        }
+
+        /* About Section */
+        .about-box {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: justify;
+            font-size: 15px;
+        }
+
+        /* Carousel */
+        .carousel-inner img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .carousel-control {
+            color: #e0e0e0;
+        }
+
+        /* Experience and Contact */
+        .list-section {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .list-section ol {
+            margin: 10px auto;
+        }
+
+        /* Divider */
+        hr {
+            border-color: #64b5f6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- About Section -->
+    <div class="container">
+        <div class="jumbotron">
+            <h2>PETER McGUINNESS</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="ProfilePhotoEDIT1.jpg" alt="Profile Photo" class="profile-img">
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-box">
+                        <h4>ABOUT</h4>
+                        <hr>
+                        <p>
+                            University of Galway Graduate 2023<br>
+                            Based in Toronto, ON. From Dublin, Ireland.<br><br>
+                            I'm delighted to have had the opportunity to go to university. I still remember the first time I wrote code in primary school and how enthusiastic my teacher was about understanding how technology works.<br><br>
+                            Over the last four years, I’ve focused on programming, sustainability, and GIS. This inspired my decision to create the peatland projects map of Ireland.<br><br>
+                            I moved to Toronto in September 2023 to continue learning and working. Throughout 2024, I plan to further enhance my programming skills.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="container">
+        <div class="jumbotron">
+            <h2>PROJECTS</h2>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Carousel Items -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href="peatlandInfo.html"><img src="Screenshot (4).png" alt="Peatland Project"></a>
+                    </div>
+                    <div class="item">
+                        <a href="chessInfo.html"><img src="ChessprojectButHOPEFULLYRIGHTDIMENSIONS copy.jpg" alt="Chess Project"></a>
+                    </div>
+                    <div class="item">
+                        <a href="pongaInfo.html"><img src="ponga.jpg" alt="Ponga Project"></a>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience and Contact Section -->
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="list-section">
+                        <h4>UNIVERSITY EXPERIENCE</h4>
+                        <ol>MySQL</ol>
+                        <ol>Java OOP</ol>
+                        <ol>UI & UX Design</ol>
+                        <ol>R Studio Statistical Analysis</ol>
+                        <ol>Java Servlets, JDBC, jQuery</ol>
+                        <ol>Basic Web Development (HTML, CSS, JS)</ol>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="list-section">
+                        <h4>CONTACT</h4>
+                        <ol><a href="https://www.linkedin.com/in/peter-mcguinness-41b741247/">LinkedIn</a></ol>
+                        <ol><a href="https://www.instagram.com/petermmcg/">Instagram</a></ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
