@@ -5,65 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzle Chess</title>
     
-        <!-- Bootstrap stuff-->
-
-    <!-- Latest compiled and minified CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <style>
+        /* Dark mode styles */
+        body {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
 
+        .jumbotron {
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
 
+        h2 {
+            color: #90caf9;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
 
+        a {
+            color: #bb86fc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #444;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            background-color: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+        .btn-back a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background-color: #555;
+        }
+
+        ul {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-<style>
-    * {
-        color:white;
-    }
-    body
-    {
-    background-color:#302c2c;    
-    }
-    
-</style>
 <body>
     <div class="container">
-        <div class="container">
-            <div class="container">
-                <div class="jumbotron" style{background-color:black;}>
-                    <div>
-                        <div>
-                            <button  style="float:left;" type="button"><a href="index.html">back</a></button>
-                            <h2 style="text-align: center; border-bottom: 2px solid black; padding: 20px;"> Puzzle Chess   </h2>
-                  
-                        </div>
-                    </div>
-                    
-                         
-                 
-                    <div>
-                        <p>This was anothe project I had to create for college. I designed a chess game using python and pygame. It worked in a technical sense but I've wanted to port it to unity so it would run better. The whole idea is based around a series of numbers and letters organised into whats called FEN notation. You can add as many different FENs as you want to the game. Therefore you can play out any scenario you want. There is also a random setting in the code you can change around to just spam random games. I never got it to be fully end less but it can run for a while and it's pretty good for killing time.</p>
-                    </div>
-                
-                    <div>
-                        <img class="img-responsive" style="border: 2px solid grey; border-radius:3% ;" src="FENexample.png" alt="">
-                    </div>
+        <div class="jumbotron">
+            <!-- Header Section -->
+            <div class="clearfix">
+                <button class="btn-back" type="button">
+                    <a href="index.html">Back</a>
+                </button>
+                <h2 class="text-center">Puzzle Chess</h2>
+            </div>
 
-                    <div>
-                        <li>If you want to <a href="FYP_ChessGame_D2.docx">read</a>  the paper I wrote about it.</li>
+            <!-- Description Section -->
+            <div>
+                <p>
+                    This was another project I created for college. I designed a chess game using Python and Pygame. 
+                    It worked in a technical sense, but I’ve wanted to port it to Unity for better performance. The game is based on 
+                    a series of numbers and letters organized into what’s called **FEN notation**. You can add as many different FENs 
+                    as you want to the game, allowing you to play out any scenario you like.
+                </p>
+                <p>
+                    There’s also a random setting in the code that generates random games. While not fully endless, it can run for a while 
+                    and is great for killing time!
+                </p>
+            </div>
 
+            <!-- Image Section -->
+            <div class="text-center">
+                <img src="FENexample.png" alt="Example of FEN Notation">
+            </div>
 
-                    </div>
-
-                </div>
+            <!-- Download Section -->
+            <div>
+                <ul>
+                    <li>
+                        If you want to <a href="FYP_ChessGame_D2.docx">read</a> the paper I wrote about this project.
+                    </li>
+                </ul>
             </div>
         </div>
-
     </div>
-    
 </body>
 </html>
