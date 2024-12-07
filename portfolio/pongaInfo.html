@@ -5,41 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ponga</title>
 
-       <!-- Bootstrap stuff-->
-
-    <!-- Latest compiled and minified CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0; /* Light text */
+        }
+
+        .jumbotron {
+            background-color: #1e1e1e; /* Slightly lighter dark for contrast */
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .jumbotron h2 {
+            text-align: center;
+            color: #90caf9; /* Highlight color for headings */
+            padding-bottom: 20px;
+        }
+
+        .jumbotron .intro-section {
+            border-top: 2px solid #90caf9; /* Accent border color */
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        a {
+            color: #bb86fc; /* Link color */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="container">
-            <div class="container">
-                <div class="jumbotron">
-                    <h2 style="text-align: center; padding-bottom: 20px;">Ponga</h2>
-                    <div style="border-top: 2px solid black; padding-top: 20px;">
-                        <p style="text-align: center;">
-                            <h3>Introduction</h3>
-                            This was a game I developed in 2rd year of university on using python with pygame framework.<br>
-                            the aim of the game is simple. It's designed to waste time. In an ideal world, I would have fully developed this game. <br>
-                            The concept of the game is essentailly pong but with a twist. The player (sqaure) has to try to bounce the ball into the green square <br>
-                            before the time runs out. Every round gets quicker paced and occasionally an rectangle or polymorph would spawn. <br>
-                            After the player achieves the goal. The idea of the game is so simple, I'd like to redevelop it with javascript and make it publicly available on github
-                        </p>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
+        <div class="jumbotron">
+            <h2>Ponga</h2>
+            <div class="intro-section">
+                <h3>Introduction</h3>
+                <p>
+                    This was a game I developed in my 2nd year of university using Python with the Pygame framework.<br>
+                    The aim of the game is simple—it's designed to waste time. In an ideal world, I would have fully developed this game.<br>
+                    The concept of the game is essentially Pong but with a twist. The player (square) has to try to bounce the ball into the green square<br>
+                    before the time runs out. Every round gets quicker-paced, and occasionally a rectangle or polymorph would spawn.<br>
+                    After the player achieves the goal, the game restarts with increased difficulty.<br><br>
+                    The idea of the game is so simple that I'd like to redevelop it using JavaScript and make it publicly available on GitHub.
+                </p>
             </div>
         </div>
     </div>
-
-    
 </body>
 </html>
