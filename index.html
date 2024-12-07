@@ -18,6 +18,12 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Custom JS -->
+    <script src="java.js"></script>
+
     <style>
         /* General Styles */
         body {
@@ -37,15 +43,10 @@
             border-radius: 10px;
         }
 
-        h2 {
+        h2, h4 {
             font-weight: bold;
             text-align: center;
-            color: #64b5f6;
             margin-bottom: 20px;
-        }
-
-        h4 {
-            font-weight: bold;
             color: #f5f5f5;
         }
 
@@ -58,33 +59,14 @@
             text-decoration: underline;
         }
 
-        /* Profile Section */
-        .profile-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        /* Profile Image */
         .profile-img {
             width: 50%;
-            max-width: 200px;
-            border-radius: 50%;
-            border: 4px solid #64b5f6;
-            margin-right: 30px;
-        }
-
-        .contact-icons {
-            margin-top: 10px;
-        }
-
-        .contact-icons img {
-            width: 40px;
-            margin: 0 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-icons img:hover {
-            transform: scale(1.1);
+            height: auto;
+            border-radius: 2%;
+            margin: auto;
+            display: block;
+            border: 5px solid #64b5f6;
         }
 
         /* About Section */
@@ -96,21 +78,33 @@
             font-size: 15px;
         }
 
-        /* Carousel */
-        .carousel-inner img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
+        /* Contact Image */
+        .contact-img {
+            width: 40px;
+            height: 40px;
+            margin: 10px;
+            border-radius: 50%;
         }
 
-        /* Experience Section */
-        .list-section {
-            text-align: center;
-            font-size: 20px;
+        /* Profile Section Split */
+        .about-section {
+            display: flex;
+            align-items: center;
         }
 
-        .list-section ol {
-            margin: 10px auto;
+        .about-section .col-sm-6 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-section .col-sm-6:first-child {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-section .col-sm-6:last-child {
+            padding-left: 20px;
         }
 
         /* Divider */
@@ -121,23 +115,26 @@
 </head>
 
 <body>
-    <!-- About Me Section -->
+    <!-- About Section -->
     <div class="container">
-        <div class="jumbotron">
-            <h2>About Me</h2>
-            <div class="profile-container">
-                <img src="portfolio/portfolioImages/ProfilePhotoEDIT1.jpg" alt="Profile Photo" class="profile-img">
-                <div>
-                    <h4>PETER McGUINNESS</h4>
-                    <div class="contact-icons">
+        <div class="jumbotron">          
+            <div class="row about-section">
+                <div class="col-sm-6">
+                    <img src="portfolio/portfolioImages/ProfilePhotoEDIT1.jpg" alt="Profile Photo" class="profile-img">
+                    <h2 style="margin:auto; padding-top:20px;">PETER McGUINNESS</h2>
+                    <div style="text-align: center;">
                         <a href="https://www.linkedin.com/in/peter-mcguinness-41b741247/">
-                            <img src="portfolio/icons/linkedin-icon.png" alt="LinkedIn">
+                            <img src="portfolio/portfolioImages/linkedin-icon.png" alt="LinkedIn" class="contact-img">
                         </a>
                         <a href="https://www.instagram.com/petermmcg/">
-                            <img src="portfolio/icons/instagram-icon.png" alt="Instagram">
+                            <img src="portfolio/portfolioImages/instagram-icon.png" alt="Instagram" class="contact-img">
                         </a>
                     </div>
+                </div>
+                <div class="col-sm-6">
                     <div class="about-box">
+                        <h4>ABOUT</h4>
+                        <hr>
                         <p>
                             University of Galway Graduate 2023<br>
                             Based in Toronto, ON. From Dublin, Ireland.<br><br>
@@ -151,56 +148,8 @@
         </div>
     </div>
 
-    <!-- Projects Section -->
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Projects</h2>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-
-                <!-- Carousel Items -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href="portfolio/peatlandInfo.html"><img src="portfolio/portfolioImages/Screenshot (4).png" alt="Peatland Project"></a>
-                    </div>
-                    <div class="item">
-                        <a href="portfolio/chessInfo.html"><img src="portfolio/portfolioImages/ChessprojectButHOPEFULLYRIGHTDIMENSIONS copy.jpg" alt="Chess Project"></a>
-                    </div>
-                    <div class="item">
-                        <a href="portfolio/pongaInfo.html"><img src="portfolio/portfolioImages/ponga.jpg" alt="Ponga Project"></a>
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Experience Section -->
-    <div class="container">
-        <div class="jumbotron">
-            <h2>Experience</h2>
-            <div class="list-section">
-                <ol>MySQL</ol>
-                <ol>Java OOP</ol>
-                <ol>UI & UX Design</ol>
-                <ol>R Studio Statistical Analysis</ol>
-                <ol>Java Servlets, JDBC, jQuery</ol>
-                <ol>Basic Web Development (HTML, CSS, JS)</ol>
-            </div>
-        </div>
-    </div>
+    <!-- Additional sections like Projects, Experience, etc., can follow -->
+    
 </body>
 
 </html>
