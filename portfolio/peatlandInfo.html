@@ -5,86 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PeatlandInfo</title>
 
-        <!-- Bootstrap stuff-->
-
-    <!-- Latest compiled and minified CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
+    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <style>
+        /* Dark mode styles */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
 
+        .jumbotron {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
 
+        h2 {
+            color: #90caf9; /* Accent color for headings */
+        }
+
+        a {
+            color: #bb86fc; /* Links */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #333;
+        }
+
+        .section-divider {
+            border-top: 2px solid #333;
+            margin: 20px 0;
+        }
+
+        .button-back {
+            background-color: #333;
+            color: #e0e0e0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        .button-back a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .button-back:hover {
+            background-color: #444;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="container">
-            <div class="container">
-                <div class="jumbotron">
-                    <div>
-                        <button  style="float:left;" type="button"><a href="index.html">back</a></button>
-                    <div>
-                            <h2 style="text-align: center; padding-bottom: 20px;">Irish Peatland Project</h2>
-                    </div>
-        
-                       
-                    </div>
-              
-                    <div style="border-top:2px solid black; padding-top: 20px;">
-                        <div>
-                            <h2>Introduction</h2>
-                            <p style="text-align: center;">
-                                This was my final year project for my bachalors degree in university. 
-                                I had to investigate what was being done about the maintenance of peatlands in Ireland.
-                                 I wrote my thesis about this. I created this map using an javascript library. 
-                                 The map is mostly dominated by BordNaMona project sites. These are most common in the around the center of Ireland.
-                                 My research provided this interactive map which held and could display infomation on any project site the user 
-                                 clicked on. 
-                            </p>
-                           <div style="padding-top: 20px ;">
-                            <img style="border: 1px solid black; border-radius: 5%;text-align: center;" src="AbstractDissertationImg.png" alt="">
-                            <div >
-                                <p style="text-align: center; padding-top: 20px;">
-                                    For this project, I regarded websites like Geohive. I found this website to be useful as it presents statistic data in map format. I liked the idea of filtered based on a company and so I implemented this into my application.  </p></div>
-                           </div>
-                           <div style="border-top:2px solid grey;padding:20px;">
-                            <div style="padding-bottom:20px;">
-                                <h2>
-                                    Example
-                                </h2>
-                                
-                            </div>
-                            <div style="padding:20px;">
-                                <li>
-                                    We pick a site on the map and click open
-                                </li>
-                            </div>
-                            <img  style="border: 2px solid grey;border-radius:2%;" src="FULLirelandMAPboxImg.jpg" class="img-responsive" alt="Image"> 
-                            <div style="padding:20px;">
-                                <li>
-                                    After some javascript stuff happens, the website of the site is displayed below the map(auto scroll is on)
-                                </li>
-                            </div> 
-                            <img  style="border: 2px solid grey;border-radius:2%;" src="MWHSpeatlandWebsiteImg.png" class="img-responsive" alt="Image"> 
-                           </div>
-                           <li>
-                            if you want to know <a href="Dissertation5555.docx">more</a> download my paper
-                           </li>
-
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-
-                
+        <div class="jumbotron">
+            <!-- Header Section -->
+            <div class="clearfix">
+                <button class="button-back" type="button">
+                    <a href="index.html">Back</a>
+                </button>
+                <h2 class="text-center">Irish Peatland Project</h2>
             </div>
+
+            <!-- Introduction Section -->
+            <div class="section-divider"></div>
+            <div>
+                <h2>Introduction</h2>
+                <p>
+                    This was my final year project for my bachelor's degree in university. 
+                    I investigated what was being done about the maintenance of peatlands in Ireland 
+                    and wrote my thesis on this subject. I created this map using a JavaScript library.
+                </p>
+                <p>
+                    The map is dominated by Bord Na Móna project sites, which are most common in the center of Ireland. 
+                    My research provided this interactive map that displays information on any project site the user clicks on.
+                </p>
+                <div class="text-center">
+                    <img src="AbstractDissertationImg.png" alt="Abstract Image">
+                </div>
+                <p class="text-center">
+                    For this project, I referenced websites like Geohive, which presents statistical data in map format. 
+                    Inspired by their filtering features, I implemented similar functionality in my application.
+                </p>
+            </div>
+
+            <!-- Example Section -->
+            <div class="section-divider"></div>
+            <div>
+                <h2>Example</h2>
+                <ul>
+                    <li class="list-item">We pick a site on the map and click open.</li>
+                    <div class="text-center">
+                        <img src="FULLirelandMAPboxImg.jpg" alt="Map of Ireland">
+                    </div>
+                    <li class="list-item">
+                        After some JavaScript processing, the website of the site is displayed below the map (auto-scroll is on).
+                    </li>
+                    <div class="text-center">
+                        <img src="MWHSpeatlandWebsiteImg.png" alt="Website View">
+                    </div>
+                </ul>
+            </div>
+
+            <!-- Download Section -->
+            <div class="section-divider"></div>
+            <p>
+                If you want to know more, <a href="Dissertation5555.docx">download my paper</a>.
+            </p>
         </div>
     </div>
-    
 </body>
 </html>
