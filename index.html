@@ -118,89 +118,41 @@
         /* General container styling */
 
 
-/* Profile Section */
-.profile-section {
-    text-align: center;
-}
 
-.profile-img {
-    width: 80%; /* Adjust image size */
-    max-width: 200px; /* Ensures it doesn't get too large */
-    height: auto;
-    border-radius: 50%; /* Circular profile photo */
-}
 
-.profile-name {
-    margin-top: 15px;
-    font-size: 1.8rem; /* Responsive text size */
-    color: #333;
-}
-
-.contact-img {
-    width: 40px;
-    height: 40px;
-    margin: 0 10px; /* Adds spacing between icons */
-    transition: transform 0.3s;
-}
-
-.contact-img:hover {
-    transform: scale(1.1); /* Slight hover effect */
-}
-
-/* About Section */
-.about-box {
-    padding: 20px;
-}
-
-.about-title {
-    color: #90caf9;
-    font-size: 1.5rem;
-}
-
-.about-content {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-}
-
-.about-highlight {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .row {
-        flex-direction: column; /* Stack sections vertically */
-    }
-
-    .profile-img {
-        width: 60%; /* Larger image on smaller screens */
-    }
-
-    .profile-name {
-        font-size: 1.5rem; /* Adjust font size */
-    }
-
-    .about-box {
-        text-align: center; /* Center content for small screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-img {
-        width: 70%;
-    }
-
-    .contact-img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .about-content {
-        font-size: 0.9rem; /* Reduce text size */
-    }
-}
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column; /* Stack sections vertically */
+            }
+        
+            .profile-img {
+                width: 60%; /* Larger image on smaller screens */
+            }
+        
+            .profile-name {
+                font-size: 1.5rem; /* Adjust font size */
+            }
+        
+            .about-box {
+                text-align: center; /* Center content for small screens */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-img {
+                width: 70%;
+            }
+        
+            .contact-img {
+                width: 30px;
+                height: 30px;
+            }
+        
+            .about-content {
+                font-size: 0.9rem; /* Reduce text size */
+            }
+        }
 
 
 
