@@ -100,13 +100,32 @@
                 max-width: 100%;
             }
         }
-        footer-grid iframe{
-            margin:auto;
-            float:right;
-            max-width:100%;
-            max-height:100%;
-            
+    
+        .footer-grid
+        {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        gap: 10px; /* Adds space between the columns */
+        align-items: center; /* Vertically centers the content */
+        justify-content: center; /* Horizontally centers the grid */
         }
+    
+        .footer-grid div img
+        {
+        width: 100%; /* Ensures the image takes the full width of its column */
+        height: auto; /* Maintains the aspect ratio of the image */
+        }
+    
+        .footer-grid div iframe 
+        {
+        width: 100%; /* Ensures the iframe takes the full width of its column */
+        height: 100%; /* Adjusts the height as needed */
+        border: none; /* Removes any default border from the iframe */
+        }
+
+
+
+        
     </style>
 </head>
 <body>
@@ -176,8 +195,7 @@
                     <div>
                         <img src="portfolioImages/AbstractDissertationImg.png" alt="Abstract of Dissertation Image">
                     </div>
-                    <div>
-                        
+                    <div>                 
                           <iframe src="irishpeatlandprojectDemo.html" frameborder="2"></iframe>
                     </div>
                 </div>
