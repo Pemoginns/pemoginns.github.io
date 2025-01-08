@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map of Irish Peatlands</title>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e9f7e4;
+            display: flex;
+            flex-direction: row;
+        }
+
+        nav {
+            height: 75px;
+            background-color: #4caf50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            background-color: #45a049;
+            border-radius: 4px;
+            padding: 6px 12px;
+        }
+
+        #content {
+            display: flex;
+            flex-grow: 1;
+            margin-top: 75px;
+            width: 100%;
+        }
+
+        #map {
+            flex: 2;
+            height: calc(100vh - 75px);
+            border: 2px solid #3fcc23;
+        }
+
+        #info-container {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        #info-container h3 {
+            margin-top: 0;
+            color: #388e3c;
+        }
+
+        #bogland-info {
+            background-color: #f1f9f4;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #search-section {
+            background-color: #ffffff;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #search-section input {
+            padding: 8px;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #search-section button {
+            padding: 8px 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #search-section button:hover {
+            background-color: #3a9f3f;
+            
+        }
+        #search-input{
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        #bogland-info h2{
+            font-size: 15px;
+
+        }
+        #bogland-info button{
+        margin: auto;
+         width: 130px;
+         height: 60px;
+        background-color: #4caf50;
+        border:none;
+        border-radius: 4px;
+        cursor:pointer;    
+        text-decoration: none;
+        color: white;  
+        
+    }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Irish Peatland Project</h1>
+        
+       
+    </nav>
+
+    <div id="content">
+        <div id="map"></div>
+        <div id="info-container">
+            <!-- <div id="search-section" >
+                <input type="text" id="search-input" placeholder="Enter country or project name...">
+                <button id="search-button">Search</button>
+          
+            </div> -->
+          
+
+            <div id="bogland-info">
+                <h3>Bogland Projects in Ireland</h3>
+
+            <p>
+                <h2>
+                    1. The Living Bog Project (2016–2021):
+                </h2>
+           
+                This was Ireland's largest raised bog restoration initiative, targeting 12 raised bog Special Areas of Conservation (SACs) across seven counties. The project restored over 2,600 hectares of raised bog habitat, aiming to increase the national active raised bog area by 50%. It also focused on community engagement and education to promote peatland conservation. 
+                RAISED BOGS
+
+
+                <h2>
+                   2. Bord na Móna Peatland Restoration:
+                </h2>
+                
+                Bord na Móna, Ireland's semi-state company responsible for peat extraction, has shifted towards peatland rehabilitation. The company is on track to restore over 8,125 hectares of bog to peat-forming conditions, with more than 7,200 hectares restored to date. This effort contributes to carbon sequestration and biodiversity enhancement. 
+                BORD NA MÓNA
+
+
+                <h2>
+                    3. Coillte's Peatland Habitat Restoration:
+
+               
+                </h2>
+                Coillte, Ireland's state forestry company, has been involved in EU LIFE-funded restoration projects over the past decade. Their efforts focus on improving the quality of specific habitats on their estate, including boglands and forests, contributing to national conservation goals. 
+                COILLTE
+
+
+                <h2>
+                    4. Girley Bog Restoration:
+
+                </h2>
+                
+                Led by the Irish Peatland Conservation Council (IPCC), this community-driven project focuses on conserving Girley Bog in County Meath. Activities include volunteering, education, and awareness events to promote peatland conservation at the local level. 
+                IPCC
+
+                These projects reflect Ireland's commitment to restoring peatlands, recognizing their importance in climate regulation, biodiversity conservation, and cultural heritage.
+                  
+
+
+            </p>
+                          
+            
+            </div>
+            <div id="bogland-info" >
+                
+                <h3>Suggested sites</h3>
+
+                <div style="margin: auto;width: 68%;padding-left: 5px;">
+                <button>Bord Na Mona</button>              
+                <button> CANN</button>
+                <button> Wild Atlantic Nature</button>
+               
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        const map = L.map('map').setView([53.5, -8], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 10,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        
+        const projectData = [
+                { "name": "Care Peat", "lat": 53.394137, "lon": -7.419158, "num": 1 },
+                { "name": "Care Peat", "lat": 53.116213, "lon": -7.865433, "num": 2 },
+                { "name": "Multi-Peat", "lat": 53.3922, "lon": -9.382367, "num": 3 },
+                { "name": "Wild Western Peatlands", "lat": 53.490723, "lon": -9.7474635, "num": 4 },
+                { "name": "Wild Atlantic Nature", "lat": 55.05179222, "lon": -7.955815254, "num": 5 },
+                { "name": "Wild Atlantic Nature", "lat": 54.07702884, "lon": -8.964108736, "num": 6 },
+                { "name": "Wild Atlantic Nature", "lat": 54.77053907, "lon": -8.682585066, "num": 7 },
+                { "name": "Wild Atlantic Nature", "lat": 54.63934926, "lon": -8.301726287, "num": 8 },
+                { "name": "Wild Atlantic Nature", "lat": 54.72039062, "lon": -8.213634473, "num": 9 },
+                { "name": "Wild Atlantic Nature", "lat": 54.89035883, "lon": -8.045102298, "num": 10 },
+                { "name": "Wild Atlantic Nature", "lat": 54.53033907, "lon": -8.153046187, "num": 11 },
+                { "name": "Wild Atlantic Nature", "lat": 54.72926932, "lon": -8.296412713, "num": 12 },
+                { "name": "Wild Atlantic Nature", "lat": 54.75992478, "lon": -7.975808938, "num": 13 },
+                { "name": "Wild Atlantic Nature", "lat": 54.90674814, "lon": -7.918845784, "num": 14 },
+                { "name": "Wild Atlantic Nature", "lat": 54.73629054, "lon": -7.8780176, "num": 15 },
+                { "name": "Wild Atlantic Nature", "lat": 54.74972422, "lon": -7.898034699, "num": 16 },
+                { "name": "Wild Atlantic Nature", "lat": 53.54111007, "lon": -9.958831884, "num": 17 },
+                { "name": "Wild Atlantic Nature", "lat": 53.59131334, "lon": -9.698090387, "num": 18 },
+                { "name": "Wild Atlantic Nature", "lat": 53.51647692, "lon": -9.855265421, "num": 19 },
+                { "name": "Wild Atlantic Nature", "lat": 53.61689053, "lon": -9.772413897, "num": 20 },
+                { "name": "Wild Atlantic Nature", "lat": 53.95148467, "lon": -9.578985966, "num": 21 },
+                { "name": "Wild Atlantic Nature", "lat": 54.12070322, "lon": -9.731850548, "num": 22 },
+                { "name": "Wild Atlantic Nature", "lat": 53.64107657, "lon": -9.692708854, "num": 23 },
+                { "name": "Wild Atlantic Nature", "lat": 54.28873455, "lon": -8.92657085, "num": 24 },
+                { "name": "Wild Atlantic Nature", "lat": 54.1449636, "lon": -8.962598062, "num": 25 },
+                { "name": "Wild Atlantic Nature", "lat": 54.1009665, "lon": -8.947605037, "num": 26 },
+                { "name": "Wild Atlantic Nature", "lat": 54.41139242, "lon": -8.220491874, "num": 27 },
+                { "name": "Smart Bog", "lat": 53.32222224, "lon": -7.63002711, "num": 28 },
+                { "name": "CConnects", "lat": 53.413951, "lon": -9.413896, "num": 29 },
+                { "name": "CANN", "lat": 54.05672002, "lon": -8.32702403, "num": 30 },
+                { "name": "CANN", "lat": 55.10884503, "lon": -7.845008558, "num": 31 },
+                { "name": "CANN", "lat": 54.18779439, "lon": -7.254373685, "num": 32 },
+                { "name": "CANN", "lat": 54.19533187, "lon": -7.163869705, "num": 33 },
+                { "name": "CANN", "lat": 54.33696365, "lon": -6.609938772, "num": 34 },
+                { "name": "CANN", "lat": 54.48542011, "lon": -5.714894244, "num": 35 },
+                { "name": "CANN", "lat": 54.38017623, "lon": -5.778055171, "num": 36 },
+                { "name": "CANN", "lat": 54.27641542, "lon": -7.34772966, "num": 37 },
+                { "name": "CANN", "lat": 54.52824137, "lon": -7.349750553, "num": 38 },
+                { "name": "CANN", "lat": 54.62579598, "lon": -7.473313666, "num": 39 },
+                { "name": "CANN", "lat": 54.64584686, "lon": -7.632098047, "num": 40 },
+                { "name": "CANN", "lat": 54.74245347, "lon": -6.666426506, "num": 41 },
+                { "name": "CANN", "lat": 54.82266556, "lon": -6.647005239, "num": 42 },
+                { "name": "CANN", "lat": 54.8009815, "lon": -6.526299332, "num": 43 },
+                { "name": "Pearl Mussel Project", "lat": 55.009744, "lon": -7.950625, "num": 44 },
+                { "name": "Pearl Mussel Project", "lat": 53.643648, "lon": -9.766116, "num": 45 },
+                { "name": "Pearl Mussel Project", "lat": 53.416722, "lon": -9.881473, "num": 46 },
+                { "name": "Pearl Mussel Project", "lat": 53.416722, "lon": -9.403567, "num": 47 },
+                { "name": "Pearl Mussel Project", "lat": 51.977085, "lon": -9.862247, "num": 48 },
+                { "name": "Pearl Mussel Project", "lat": 51.853411, "lon": -10.024295, "num": 49 },
+                { "name": "Pearl Mussel Project", "lat": 51.92582, "lon": -9.782596, "num": 50 },
+                { "name": "Pearl Mussel Project", "lat": 51.717486, "lon": -9.889712, "num": 51 },
+                { "name": "The living bog", "lat": 53.73307058, "lon": -7.537362305, "num": 52 },
+                { "name": "The living bog", "lat": 53.77600504, "lon": -8.604565387, "num": 53 },
+                { "name": "The living bog", "lat": 53.49749913, "lon": -8.494762172, "num": 54 },
+                { "name": "The living bog", "lat": 53.32261565, "lon": -7.631668253, "num": 55 },
+                { "name": "The living bog", "lat": 53.84459855, "lon": -8.699697942, "num": 56 },
+                { "name": "The living bog", "lat": 53.29214859, "lon": -7.87286982, "num": 57 },
+                { "name": "The living bog", "lat": 53.64549609, "lon": -7.487041937, "num": 58 },
+                { "name": "The living bog", "lat": 53.7956125, "lon": -6.988375842, "num": 59 },
+                { "name": "The living bog", "lat": 53.32698579, "lon": -7.951692825, "num": 60 },
+                { "name": "The living bog", "lat": 53.27144063, "lon": -7.875001258, "num": 61 },
+                { "name": "The living bog", "lat": 53.33804121, "lon": -7.343401655, "num": 62 },
+                { "name": "The living bog", "lat": 53.03371046, "lon": -7.899623663, "num": 63 },
+                { "name": "Forrest-to-peatland restauration project", "lat": 54.31007194, "lon": -7.564862063, "num": 64 },
+                { "name": "Garron plateau bog restauration project", "lat": 55.00363521, "lon": -6.132158031, "num": 65 },
+                { "name": "FarmPEAT", "lat": 53.4464275, "lon": -8.113087761, "num": 66 },
+                { "name": "FarmPEAT", "lat": 53.32261565, "lon": -7.631318311, "num": 67 },
+                { "name": "FarmPEAT", "lat": 53.3217925, "lon": -8.119988539, "num": 68 },
+                { "name": "FarmPEAT", "lat": 53.34308183, "lon": -7.401385351, "num": 69 },
+                { "name": "FarmPEAT", "lat": 53.3922612, "lon": -7.323807298, "num": 70 },
+                { "name": "FarmPEAT", "lat": 53.28618712, "lon": -7.87286982, "num": 71 },
+                { "name": "FarmPEAT", "lat": 53.29214859, "lon": -7.343315825, "num": 72 },
+                { "name": "FarmPEAT", "lat": 53.33770809, "lon": -7.030258265, "num": 73 },
+                { "name": "ReformWaterIE", "lat": 53.15783744, "lon": -8.156145532, "num": 74 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.26584382, "lon": -8.135953759, "num": 75 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.30492713, "lon": -8.195296795, "num": 76 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.56535342, "lon": -7.853075943, "num": 77 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.22544794, "lon": -8.002291617, "num": 78 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.23419394, "lon": -7.776251451, "num": 79 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.25424519, "lon": -7.701653155, "num": 80 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.32286512, "lon": -8.047196928, "num": 81 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.2735439, "lon": -7.714282299, "num": 82 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.3411777, "lon": -8.21793755, "num": 83 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.31091019, "lon": -7.251145748, "num": 84 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.2688853, "lon": -7.312610354, "num": 85 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.18158466, "lon": -7.039832295, "num": 86 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.72820973, "lon": -8.012788982, "num": 87 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.57649027, "lon": -7.857453724, "num": 88 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.26784734, "lon": -7.741620637, "num": 89 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.283271, "lon": -7.219980428, "num": 90 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.26553537, "lon": -7.927655537, "num": 91 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.2738738, "lon": -7.110105147, "num": 92 },
+                { "name": "Bord Na Mona rehabilitation scheme", "lat": 53.21861512, "lon": -7.726456483, "num": 93 },
+                { "name": "CABB", "lat": 54.6163553, "lon": -7.9442743, "num": 94 },
+                { "name": "CABB", "lat": 54.14143094, "lon": -8.895016525, "num": 95 },
+                { "name": "forum Connemara", "lat": 53.49769793, "lon": -9.81721062, "num": 96 },
+                { "name": "forum Connemara", "lat": 53.51640975, "lon": -9.70103001, "num": 97 },
+                { "name": "Meath Westmeath peatland heritage group", "lat": 53.56047768, "lon": -6.986957008, "num": 98 }
+];
+        
+
+        // Marker Group
+        const markerGroup = L.layerGroup().addTo(map);
+
+        // Function to Add Markers to the Map
+        function addMarkers(filter = null) {
+            markerGroup.clearLayers(); // Clear existing markers
+            projectData.forEach(project => {
+                if (!filter || project.name.includes(filter)) {
+                    L.marker([project.lat, project.lon])
+                        .bindPopup(`<strong>${project.name}</strong>`)
+                        .addTo(markerGroup);
+                }
+            });
+        }
+
+        // Add All Markers Initially
+        addMarkers();
+
+        // Event Listeners for Suggested Sites Buttons
+        document.querySelectorAll('#info-container button').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.textContent.trim(); // Get button text
+                addMarkers(filter); // Filter markers by button text
+                console.log(projectData.length); 
+            });
+        });
+            
+
+
+      
+    </script>
+</body>
+</html>
