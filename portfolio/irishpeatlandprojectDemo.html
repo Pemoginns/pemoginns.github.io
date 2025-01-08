@@ -58,15 +58,25 @@
         }
 
         #info-container {
-            
+            flex:1;
             background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             display: block;
             width:100%;
-            
+            flex-column:;
             gap: 20px;
             overflow-y: auto;
         }
+        .grid-container{
+            display:grid;
+            grid-template-columns:auto;
+            gap:20px;
+            
+        }
+        .grid-container > div{
+            margin:auto;
+        }
+        
 
         #info-container h3 {
             margin-top: 0;
@@ -141,7 +151,13 @@
     </nav>
 
     <div id="content">
-        <div id="map"></div>
+        <div class="grid-container">
+            
+            <div id="map"></div>
+            
+        </div>
+        
+        
         <div id="info-container">
             
          <div id="bogland-info" >
