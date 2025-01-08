@@ -342,7 +342,7 @@
             projectData.forEach(project => {
                 if (!filter || project.name.includes(filter)) {
                     L.marker([project.lat, project.lon])
-                        .bindPopup(`<strong><a href="${project.link}">${project.name}</a></strong>`)
+                        .bindPopup(`<strong><a href="null">${project.name}</a></strong>`)
                         .addTo(markerGroup);
                 }
             });
