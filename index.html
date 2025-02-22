@@ -1,255 +1,52 @@
-3<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Peter McGuinness</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Custom JS -->
-    <script src="java.js"></script>
-
     <style>
-        /* General Styles */
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            margin: 0;
+            background: fixed;
+            font-family: Arial, sans-serif;
         }
-
-        .container {
-            margin-bottom: 20px;
+        #wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:#78a178;
+            
         }
-
-        .jumbotron {
-            background-color: #1f1f1f;
-            color: #e0e0e0;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        h2, h4 {
-            font-weight: bold;
+        #wrapper a {
+            border: 1px solid rgb(255, 255, 255);
+            width: 100px;
+            height: 100px;
+            background-color: #83a884;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
             text-align: center;
-            margin-bottom: 20px;
-            color: #f5f5f5;
+            justify-content: center;
+            line-height: 100px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-
-        a {
-            color: #64b5f6;
-            text-decoration: none;
+        #wrapper a:hover {
+            background-color: #54755e;
         }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Profile Image */
-        .profile-img {
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            margin: auto;
-            text-align:center;
-            align-items:center;
-            border: 5px solid #64b5f6;
-        }
-
-        /* About Section */
-        .about-box {
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: justify;
-            font-size: 15px;
-            
-        }
-        .contact-links{
-            text-align:center;
-            margin:auto; 
-        }
-        /* Contact Image */
-        .contact-img {
-            width: 40px;
-            height: 40px;
-            margin: 10px;
-            border-radius: 50%;
-        }
-        /* Divider */
-        hr {
-            border-color: #64b5f6;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .row {
-                flex-direction: column; /* Stack sections vertically */
-            }
-        
-            .profile-img {
-                width: 60%; /* Larger image on smaller screens */
-            }
-        
-            .profile-name {
-                font-size: 1.5rem; /* Adjust font size */
-            }
-        
-            .about-box {
-                text-align: center; /* Center content for small screens */
-                }
-            .profile-section{
-                text-align:center;
-                margin:auto;
-                
-            }
-        }
-
-
-            
-        
-        @media (max-width: 480px) {
-            .profile-img {
-                width: 50%;
-                height:50%;
-                margin:0 auto;
-            }
-        
-            .contact-img {
-                width: 30px;
-                height: 30px;
-            }
-        
-            .about-content {
-                font-size: 0.9rem; /* Reduce text size */
-            }
-        }
-    
     </style>
 </head>
-
 <body>
-    <!-- About Section -->
-<div class="container" style="padding-top:30px; background-color:#121212;">
-    <div class="jumbotron">          
-        <div class="row about-section">
-            <!-- Profile Section -->
-            <div class="col-sm-6 profile-section">
-                <img src="https://media.licdn.com/dms/image/v2/D4E03AQHtBcsynpBLEA/profile-displayphoto-shrink_800_800/B4EZRRe_UiGgAg-/0/1736533866933?e=1743638400&v=beta&t=fiinM3I7qr-F3OockC6yK-84D2EPswHbrgzpiT8Y-lc" alt="Profile Photo" class="profile-img" >
-                <h2 class="profile-name">PETER McGUINNESS</h2>
-                <div class="contact-links">
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/peter-mcguinness-41b741247/">
-                        <img src="https://cdn.pixabay.com/photo/2022/10/09/17/32/linkedin-7509708_960_720.png" alt="LinkedIn" class="contact-img">
-                    </a>
-                    <!-- GitHub -->
-                    <a href="https://github.com/Pemoginns?tab=repositories">
-                        <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-grise.png" alt="GitHub" class="contact-img">
-                    </a>
-                </div>
-            </div>
-            
-            <!-- About Section -->
-            <div class="col-sm-6 about-box">
-                <h4 class="about-title">ABOUT</h4>
-                <hr>
-                <p class="about-content">
-                    <span class="about-highlight">
-                        University of Galway Graduate 2023, <br> 
-                        From Dublin, Ireland.<br><br>
-                    </span>
-                    I'm delighted to have had the opportunity to go to university. Over the length of the course I developed my knowledge of programming with a focus on OOP and web development.<br><br>
-                    During my final year in University, I started working on programming with Mapbox and Leaflet.js after previously working with ArcGIS in second year. This inspired my decision to integrate a website that displayed a map.<br><br>
-                    I moved to Toronto in September 2023 to continue learning and working. Throughout 2025, I plan to further enhance my programming skills.
-                </p>
-            </div>
-        </div>
+    
+    <div id="wrapper">
+      
+        <a href="about.html">about</a>
+
+        <a href="projects.html">projects</a>
+        <a href="contact.html">contact</a>
+        
+      
     </div>
-</div>
-
-
-    <!-- Projects Section -->
-    <div class="container">
-        <div class="jumbotron">
-            <h2 style="color:#90caf9;">Projects</h2>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                </ol>
-
-                <!-- Carousel Items -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href="portfolio/peatlandInfo.html"><img src="portfolio/portfolioImages/Screenshot (4).png" alt="Peatland Project"></a>
-                    </div>
-                    <div class="item">
-                        <a href="portfolio/chessInfo.html"><img src="portfolio/portfolioImages/ChessprojectButHOPEFULLYRIGHTDIMENSIONS copy.jpg" alt="Chess Project"></a>
-                    </div>
-                    <div class="item">
-                        <a href="portfolio/pongaInfo.html"><img src="portfolio/portfolioImages/ponga.jpg" alt="Ponga Project"></a>
-                    </div>
-                    <div class="item" style="margin:auto;">
-                        <a href="portfolio/smartstep.html"><img style="margin:auto;max-width:100%;max-height:100%;" src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/stepsmart.PNG?raw=true" alt="smartStep Project"></a>
-                    </div>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Experience Section -->
-    <div class="container">
-        <div class="jumbotron">
-            <h2  style="color:#90caf9;">Experience & Education</h2>
-                <div class="row" style="width:90%;">
-                    <div class="col-12 col-sm-6">
-                    <div class="list-section">
-                        <ol>MySQL</ol>
-                        <ol>Java OOP</ol>
-                        <ol>UI & UX Design</ol>
-                        <ol>R Studio Statistical Analysis</ol>
-                        <ol>Java Servlets, JDBC, jQuery</ol>
-                        <ol>Basic Web Development (HTML, CSS, JS)</ol>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6" style=""float:right;>
-                    <ol>University of Galway 2:2 - 2023</ol>
-                   <ol>Joint honours Arts (Information Technology and Geography)</ol>
-                    <br>
-                    <ol>Sanford Park School Dublin - 2020</ol>
-                   <ol> Leaving Certificate</ol>
-                    <br>
-                    <ol>University College Dublin - 2018</ol>
-                    <ol>Computer Science Summer School</ol>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 </html>
