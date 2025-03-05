@@ -6,23 +6,25 @@
     <link rel="icon" type="image/x-icon" href="portfolioImages/favicon.ico">
     <title>Project List - Portfolio</title>
     <style>
+     
         body {
             font-family: Arial, sans-serif;       
             justify-content: center;
             align-items: center;         
             background-color: #85a888;
-        }        
+        }  
+     
         .projects-container {
             width: 600px;
             height: 600px;
+            border: 50px;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin:auto;
-
-          
+            margin:auto; 
         }
+     
         .projects {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -30,6 +32,7 @@
             gap: 20px;
             overflow: hidden;
         }
+     
         .project {
             cursor: pointer;
             color: white;
@@ -44,9 +47,11 @@
             width: 160px;
             height: 175px;
         }
+     
         .project::hover{
             background-color:#8fc794;
         }
+     
         .project img {
             width: 140px;
             height: 100px;
@@ -54,17 +59,20 @@
             border-radius: 5px;
             box-shadow:0 4px 6px rgba(0,0,0,0.1);
         }
+     
         .project-title {
             font-size: 14px;
             font-weight: bold;
             margin: 5px 0;
         }
+     
         .project-info {
             font-size: 12px;
             text-align: center;
             height:55px;
             width:100%;
-        }  
+        }
+     
         #nav{
             background-color: blue;
             color: white;
@@ -74,6 +82,14 @@
             width: 75%;
             margin: auto;
             height: 45px;
+        }
+     
+        #nav a{
+            color: white;
+            background-color: #a9c4aa;
+            text-decoration: none;                      
+            padding: 5px 10px;
+            border-radius: 8%;
         }
         
         #search-input {
@@ -110,18 +126,12 @@
             text-align: center;
         }
         
-        #nav a{
-            color: white;
-            background-color: #a9c4aa;
-            text-decoration: none;                      
-            padding: 5px 10px;
-            border-radius: 8%;
-        }
+     
     </style>
 </head>
 <body>
     <div class="container">
-            <h1>Project List</h1>      
+                 
         <div id="nav">
             <a href="https://pemoginns.github.io/index.html">back</a>
             <!-- search -->
