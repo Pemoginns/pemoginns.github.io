@@ -102,6 +102,11 @@
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
         }
+        #nav{
+            width:70%;
+            height:75px;
+            margin:auto;
+        }
         #nav a{
             color: white;
             background-color: #a9c4aa;
@@ -119,7 +124,7 @@
         <div id="nav">
             <a href="https://pemoginns.github.io/index.html">back</a>
             <!-- search -->
-            <input type="text" onchange="searchProjects()" id="search-input" placeholder="Search projects...">
+            <input type="text" onkeyDown="searchProjects()" id="search-input" placeholder="Search projects...">
             <button onclick="searchProjects()" id="search-button">Search</button>
         </div> 
         <div class="projects-container">
@@ -139,12 +144,12 @@
                 <div class="project">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/smartstep.JPG?raw=true" alt="Project 3">
                     <div class="project-title">SmartStep</div>
-                    <div class="project-info">an mobile application UI designed as a movement tracking app</div>
+                    <div class="project-info">an mobile application UI designed as a fitness/movement tracking app</div>
                 </div>
                 <div class="project">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/FULLirelandMAPboxImg.jpg?raw=true" alt="Project 4">
-                    <div class="project-title">Irish Peatland's Project Mapping Project</div>
-                    <div class="project-info">An interactive map of Ireland displayed with mapbox...</div>
+                    <div class="project-title">Mapping Ireland's Peatland Projects</div>
+                    <div class="project-info">An interactive map of Ireland</div>
                 </div>
                 <div class="project">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/AbstractDissertationImg.png?raw=true" alt="Project 5">
