@@ -14,6 +14,8 @@
             height: 100vh;
             background-color: #85a888;
         }
+
+        
         .projects-container {
             width: 600vh;
             height: 600vh;
@@ -51,6 +53,7 @@
             height: 100px;
             object-fit: cover;
             border-radius: 5px;
+            box-shadow:0 4px 6px rgba(0,0,0,0.1);
         }
         .project-title {
             font-size: 14px;
@@ -63,6 +66,8 @@
             height:55px;
             width:100%;
         }
+
+        
         #nav{
             background-color: blue;
             color: white;
@@ -74,6 +79,7 @@
             margin: auto;
             height: 45px;
         }
+        
         #search-input {
             padding: 5px;
             border-radius: 5px;
@@ -81,6 +87,7 @@
             justify-content: center;
             margin: 0 auto;
         }
+        
         #search-button {
             background-color: #b1ccb2;
             color: white;
@@ -94,6 +101,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        #container{
+        
+        }
+        
+        
         #container h1{
             font-size: 28px;
             margin-bottom: 20px;
@@ -103,11 +115,7 @@
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
         }
-        #nav{
-            width:70%;
-            height:75px;
-            margin:auto;
-        }
+        
         #nav a{
             color: white;
             background-color: #a9c4aa;
@@ -135,7 +143,7 @@
                    <div class="project">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/smartstep.JPG?raw=true" alt="Project 3">
                     <div class="project-title">SmartStep</div>
-                    <div class="project-info">an mobile application designed as a fitness tracking app</div>
+                    <div class="project-info">A mobile application designed as a fitness tracker</div>
                 </div>
                 <div class="project">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/ChessprojectButHOPEFULLYRIGHTDIMENSIONS%20copy.jpg?raw=true" alt="Project 1">
@@ -170,6 +178,13 @@
     </div>
 </body>
 <script>
+    var project = documentgetElementById("project");
+    project.addEventListener("click", projectFunction11);
+
+    function projectFunction11(){
+        alert("test")
+        
+    }
     
     function searchProjects(){
             // Get the search input value and convert it to lowercase  
