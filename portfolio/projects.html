@@ -7,11 +7,9 @@
     <title>Project List - Portfolio</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-           
+            font-family: Arial, sans-serif;       
             justify-content: center;
-            align-items: center;
-            
+            align-items: center;         
             background-color: #85a888;
         }        
         .projects-container {
@@ -112,8 +110,7 @@
         #nav a{
             color: white;
             background-color: #a9c4aa;
-            text-decoration: none;
-                       
+            text-decoration: none;                      
             padding: 5px 10px;
             border-radius: 8%;
         }
@@ -121,12 +118,14 @@
 </head>
 <body>
     <div class="container">
-      
-
-     
-        <div class="projects-container">
-            
-            
+            <h1>Project List</h1>      
+        <div id="nav">
+            <a href="https://pemoginns.github.io/index.html">back</a>
+            <!-- search -->
+            <input type="text" onkeyDown="searchProjects()" id="search-input" placeholder="Search projects...">
+            <button onclick="searchProjects()" id="search-button">Search</button>
+        </div> 
+        <div class="projects-container">          
             <div class="projects">
                    <div class="project" onclick="projectFunction11(1)">
                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/smartstep.JPG?raw=true" alt="Project 3">
@@ -162,14 +161,7 @@
                
                 
             </div>
-              <h1>Project List</h1>
-        
-        <div id="nav">
-            <a href="https://pemoginns.github.io/index.html">back</a>
-            <!-- search -->
-            <input type="text" onkeyDown="searchProjects()" id="search-input" placeholder="Search projects...">
-            <button onclick="searchProjects()" id="search-button">Search</button>
-        </div> 
+       
         </div>
     </div>
 </body>
