@@ -5,133 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="portfolioImages/favicon.ico">
     <title>Project List - Portfolio</title>
-    <style>
-     
-        body {
-            font-family: Arial, sans-serif;       
-            justify-content: center;
-            align-items: center;         
-            background-color: #85a888;
-        }  
-     
-        .projects-container {
-            width: 600px;
-            height: 600px;
-            border: 50px;
-            padding-top:50px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin:auto; 
-        }
-     
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 20px;
-            overflow: hidden;
-            text-decoration:none;
-        }
-     
-        .project {
-            cursor: pointer;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background:  #83a884;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid grey;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 160px;
-            height: 175px;
-        }
-     
-        .project::hover{
-            background-color:#8fc794;
-        }
-     
-        .project img {
-            width: 140px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-            box-shadow:0 4px 6px rgba(0,0,0,0.1);
-        }
-     
-        .project-title {
-            text-decoation:none;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 5px 0;
-        }
-     
-        .project-info {
-            text-decoration:none;
-            font-size: 12px;
-            text-align: center;
-            height:55px;
-            width:100%;
-        }
-     
-        #nav{
-            display:block;      
-            margin:auto;
-            border:1px solid grey;
-            width: 365px;
-            height:50px;
-        }
-     
-        #nav a{
-            color: white;
-            background-color: #a9c4aa;
-            text-decoration: none;                      
-            padding: 5px 10px;
-            border-radius: 8%;
-    
-        }
-        #nav  a::hover{
-        background-color:grey;
-        }
-        
-        #search-input {
-            padding: 5px;
-            border-radius: 5px;
-            margin-right: 10px;
-            justify-content: center;
-            margin: 0 auto;
-        }
-        
-        #nav button a {
-            margin:0 auto;
-            background-color: #b1ccb2;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-             
-        #container h1{
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-align: center;
-            color: #83a884;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-        }
-        
-     
-    </style>
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #85a888;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }  
+
+    /* Navigation Bar */
+    #nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #a9c4aa;
+        border: 1px solid grey;
+        width: 400px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    #nav a {
+        color: white;
+        text-decoration: none;
+        background-color: #85a888;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    #nav a:hover {
+        background-color: grey;
+    }
+
+    #search-input {
+        padding: 6px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        flex-grow: 1;
+    }
+
+    /* Project Container */
+    .projects-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 600px;
+        height: auto;
+    }
+
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 20px;
+        width: 100%;
+        justify-items: center;
+    }
+
+    .project {
+        cursor: pointer;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #83a884;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid grey;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 160px;
+        height: 175px;
+        text-align: center;
+    }
+
+    .project:hover {
+        background-color: #8fc794;
+    }
+
+    .project img {
+        width: 140px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .project-title {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+
+    .project-info {
+        font-size: 12px;
+        text-align: center;
+    }
+
+</style>
+
 </head>
 <body>
     <div class="container">
