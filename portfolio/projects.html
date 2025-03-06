@@ -1,206 +1,174 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="portfolioImages/favicon.ico">
     <title>Project List - Portfolio</title>
-   <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #85a888;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-    }  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #85a888;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    /* Navigation Bar */
-    #nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        gap: 10px;
-        padding: 10px;
-        background-color: #a9c4aa;
-        border: 1px solid grey;
-        width: 400px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
+        /* Navigation Bar */
+        #nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background-color: #a9c4aa;
+            border: 1px solid grey;
+            width: 400px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-    #nav a {
-        color: white;
-        text-decoration: none;
-        background-color: #85a888;
-        padding: 8px 12px;
-        border-radius: 5px;
-        transition: background 0.3s;
-    }
+        #nav a {
+            color: white;
+            text-decoration: none;
+            background-color: #85a888;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
 
-    #nav a:hover {
-        background-color: grey;
-    }
+        #nav a:hover {
+            background-color: grey;
+        }
 
-    #search-input {
-        padding: 6px;
-        border-radius: 5px;
-        border: 1px solid grey;
-        flex-grow: 1;
-    }
+        #search-input {
+            padding: 6px;
+            border-radius: 5px;
+            border: 1px solid grey;
+            flex-grow: 1;
+        }
 
-    /* Project Container */
-    .projects-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 600px;
-        height: auto;
-    }
+        /* Project Container */
+        .projects-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+        }
 
-    .projects {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 20px;
-        height:100%;
-        width: 100%;
-        justify-items: center;
-    }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(160px, 1fr));
+            grid-template-rows: repeat(2, auto);
+            gap: 20px;
+            width: 100%;
+            justify-items: center;
+        }
 
-    .project {
-        cursor: pointer;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: #83a884;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid grey;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 160px;
-        height: 175px;
-        text-align: center;
-    }
+        .project {
+            cursor: pointer;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #83a884;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid grey;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 180px;
+            height: 175px;
+            text-align: center;
+        }
 
-    .project:hover {
-        background-color: #8fc794;
-    }
+        .project:hover {
+            background-color: #8fc794;
+        }
 
-    .project img {
-        width: 140px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+        .project img {
+            width: 140px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-    .project-title {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0;
-    }
+        .project-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
 
-    .project-info {
-        font-size: 12px;
-        text-align: center;
-    }
+        .project-info {
+            font-size: 12px;
+            text-align: center;
+        }
 
-</style>
-
+        /* Fix anchor tag nesting */
+        .project a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-                 
-        <div id="nav" style="background-color:blue;">
-            <a href="https://pemoginns.github.io/index.html">back</a>
-            <!-- search -->
-            <input type="text" onkeyDown="searchProjects()" id="search-input" placeholder="Search projects...">
-            
-        </div> 
-        <div style="height:50px;bacground-color:green;">
-         
-        </div>
-        <div class="projects-container">          
-            <div class="projects">
-                  <a href=smartstep.html>
-                   <div class="project">
-                    <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/smartstep.JPG?raw=true" alt="Project 3">
-                    <div class="project-title">SmartStep</div>
-                    <div class="project-info">A mobile application designed as a fitness tracker</div>     
-                    </a>
-                  </div>            
-                  
-                   
-                <div class="project">
-                 <a href="chessinfo.html">
-                    <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/ChessprojectButHOPEFULLYRIGHTDIMENSIONS%20copy.jpg?raw=true" alt="Project 1">
-                    <div class="project-title">RP Chess</div>
-                    <div class="project-info">Python Chess game. Using a notation method to <br>display the board</div>
-                 </a>
-               </div>
-                <div class="project">
-                 <a href="pongainfo.html">
-                     <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/ponga%20-%20Copy.jpg?raw=true" alt="Project 2">
-                    <div class="project-title">Ponga</div>
-                    <div class="project-info">A python programmed pong clone with a unique twist</div>
-                 </a>
-                 
-                </div>
-             
-                <div class="project">
-                    <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/FULLirelandMAPboxImg.jpg?raw=true" alt="Project 4">
-                    <div class="project-title">w Ireland's Peatland Projects</div>
-                    <div class="project-info">An interactive map of Ireland</div>
-                </div>
-                <div class="project">
-                    <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/AbstractDissertationImg.png?raw=true" alt="Project 5">
-                    <div class="project-title">Papers</div>
-                    <div class="project-info">Dissertation papers, supporting documents, software documentation</div>
-                </div>
-                <div class="project">
-                    <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/slideshow_logo_140x100.png?raw=true" alt="Project 6">
-                    <div class="project-title">Slideshow Application</div>
-                    <div class="project-info">Python-Tkinter simple slideshow application built for a client</div>
-                </div>
-               
-                
-            </div>
-       
+    <div id="nav">
+        <a href="https://pemoginns.github.io/index.html">Back</a>
+        <input type="text" onkeydown="searchProjects()" id="search-input" placeholder="Search projects...">
+    </div>
+    <div class="projects-container">
+        <div class="projects">
+            <a href="smartstep.html" class="project">
+                <img src="portfolioImages/smartstep.JPG" alt="SmartStep">
+                <div class="project-title">SmartStep</div>
+                <div class="project-info">A mobile application designed as a fitness tracker</div>
+            </a>
+            <a href="chessinfo.html" class="project">
+                <img src="portfolioImages/Chessproject.jpg" alt="RP Chess">
+                <div class="project-title">RP Chess</div>
+                <div class="project-info">Python Chess game using notation to display the board</div>
+            </a>
+            <a href="pongainfo.html" class="project">
+                <img src="portfolioImages/ponga.jpg" alt="Ponga">
+                <div class="project-title">Ponga</div>
+                <div class="project-info">A Python Pong clone with a unique twist</div>
+            </a>
+            <a href="#" class="project">
+                <img src="portfolioImages/FULLirelandMAPboxImg.jpg" alt="Ireland's Peatland Projects">
+                <div class="project-title">Ireland's Peatland Projects</div>
+                <div class="project-info">An interactive map of Ireland</div>
+            </a>
+            <a href="#" class="project">
+                <img src="portfolioImages/AbstractDissertationImg.png" alt="Papers">
+                <div class="project-title">Papers</div>
+                <div class="project-info">Dissertation papers, supporting documents, and software docs</div>
+            </a>
+            <a href="#" class="project">
+                <img src="portfolioImages/slideshow_logo_140x100.png" alt="Slideshow Application">
+                <div class="project-title">Slideshow Application</div>
+                <div class="project-info">Python-Tkinter slideshow app built for a client</div>
+            </a>
         </div>
     </div>
 </body>
 <script>
-    var project = document.getElementById("project");
-   
-
-    function projectFunction11(x){
-        console.log(x)
-        
-    }
-    
-    function searchProjects(){
-            // Get the search input value and convert it to lowercase  
-            var input = document.getElementById("search-input").value.toLowerCase();
-            console.log(input);
-            // Loop through all the project elements and hide/show them based on the search input
-            var projects = document.getElementsByClassName("project");
-            for (var i = 0; i < projects.length; i++) {
-                var project = projects[i];
-                var projectText = project.textContent || project.innerText;
-                if (projectText.toLowerCase().indexOf(input) > -1) {
-                    project.style.display = "";
-                } else {
-                    project.style.display = "none";
-                }
-            }  // End of for loop
-
-
+    function searchProjects() {
+        var input = document.getElementById("search-input").value.toLowerCase();
+        var projects = document.getElementsByClassName("project");
+        for (var i = 0; i < projects.length; i++) {
+            var project = projects[i];
+            var projectText = project.textContent || project.innerText;
+            project.style.display = projectText.toLowerCase().includes(input) ? "" : "none";
         }
-
+    }
 </script>
 </html>
