@@ -20,12 +20,7 @@
             padding-top: 50px;
         }
 
-        .spacer {
-            color: #85a888;
-            height: 90px;
-            padding: 50px;
-            display: flex;
-        }
+        
 
         /* Navigation Bar */
         #nav {
@@ -73,35 +68,35 @@
         }
 
        .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 10px; /* 10px space between grid items */
-    justify-items: center;
-}
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px; /* 10px space between grid items */
+        justify-items: center;
+    }
 
-article.project {
-    cursor: pointer;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #83a884;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid grey;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 180px;
-    height: 175px;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
-    box-sizing: border-box; /* Ensures padding doesn't overflow width */
-}
-
-.project:hover {
-    background-color: #8fc794;
-    transform: scale(1.03);
-}
+    article.project {
+        cursor: pointer;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #83a884;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid grey;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 180px;
+        height: 200px;
+        text-align: center;
+        transition: background-color 0.3s, transform 0.2s;
+        box-sizing: border-box; /* Ensures padding doesn't overflow width */
+    }
+    
+    .project:hover {
+        background-color: #8fc794;
+        transform: scale(1.03);
+    }
 
 
         .project img {
@@ -141,7 +136,7 @@ article.project {
     </style>
 </head>
 <body>
-    <header class="spacer">test</header>
+    
 
     <div class="container">
         <nav id="nav">
