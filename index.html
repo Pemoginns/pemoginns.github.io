@@ -1,54 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="portfolio/portfolioImages/favicon.ico">
-    <title>Portfolio - Peter McGuinness</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Peter McGuinness, Junior Software Engineer & Web Developer">
+  <meta property="og:title" content="Peter McGuinness | Developer Portfolio">
+  <meta property="og:description" content="Portfolio of Peter McGuinness, showcasing web and software development projects.">
 
-    <style>
-        body {
-            margin: 0;
-            background: fixed;
-            font-family: Arial, sans-serif;
-        }
-        #wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color:#78a178;
-            
-        }
-        #wrapper a {
-            text-decoration:none;
-            border: 1px solid rgb(255, 255, 255);
-            width: 100px;
-            height: 100px;
-            background-color: #83a884;
-            color: white;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            justify-content: center;
-            line-height: 100px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #wrapper a:hover {
-            background-color: #54755e;
-        }
-    </style>
+  <title>Peter McGuinness | Developer Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Animations and Transitions */
+    .fade-in{opacity:0;animation:fadeIn ease-in 1s forwards;}
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ireland-inspired gradient background */
+    .scroll-bg {
+      background: linear-gradient(-45deg, #169b62, #2a913c, #0f7e3a, #006837);
+      background-size: 400% 400%;
+      animation: gradientScroll 15s ease infinite;
+    }
+
+    @keyframes gradientScroll {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Project card hover effects */
+    .project-card {
+      transition: all 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .project-details {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    .project-card:hover .project-details {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .project-image {
+      width: 80px;
+      height: 80px;
+      max-width:100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 16px;
+      float: left;
+    }
+
+    .link-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #2a913c;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .link-underline:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background-color: #e2f3eb;
+      color: #0f7e3a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
 </head>
-<body>
-    
-    <div id="wrapper">
-      
-        <a href="portfolio/about.html">about</a>
-
-        <a href="portfolio/projects.html">projects</a>
-        <a href="portfolio/contact.html">contact</a>
-        
-      
+<body class="text-gray-800 scroll-bg">
+  <header class="bg-white shadow-md p-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold fade-in">Peter McGuinness</h1>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex gap-4">
+          <a href="#about" class="text-green-800 link-underline hover:text-green-600">About</a>
+          <a href="#projects" class="text-green-800 link-underline hover:text-green-600">Projects</a>
+          <a href="#skills" class="text-green-800 link-underline hover:text-green-600">Skills</a>
+          <a href="#contact" class="text-green-800 link-underline hover:text-green-600">Contact</a>
+        </nav>
+      </div>
     </div>
+  </header>
+
+  <section id="about" class="max-w-6xl mx-auto p-6 text-center fade-in">
+    <div class="bg-white rounded-xl p-8 shadow-lg max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">Junior Software Engineer & Web Developer</h2>
+      <p class="text-lg mb-6">I'm a passionate IT graduate with experience in front-end and back-end development, ready to contribute to real-world tech projects in fast-paced environments.</p>
+      <div class="flex justify-center gap-4">
+        <a href="#projects" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">View My Work</a>
+        <a href="#contact" class="border border-green-700 text-green-700 hover:bg-green-50 px-6 py-2 rounded-full transition">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="max-w-6xl mx-auto p-6 fade-in delay-1">
+    <h2 class="text-3xl font-bold mb-8 text-center text-white">Projects</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Project 1 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img src="https://github.com/Pemoginns/FerrisWheels/blob/main/favicon.png?raw=true" alt="FerrisWheelsImg" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">Ferris Wheels</h3>
+            <p class="text-sm">Website Redesign for a local bike shop  </p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4"> FerrisWheels.ie is a straight forward, static website built on the Weebly platform and hosted by Letshost.ie. It features a simple HTML/CSS structure with minimal JavaScript, focusing on clear navigation and essential content delivery. The site effectively serves its purpose for a local bike shop, offering information on products, services, and contact details without unnecessary complexity. Check it <a href="https://ferriswheels.ie/index.html" target="_blank_">here</a></p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">HTML</span>
+            <span class="skill-badge">bootstrap</span>
+            <span class="skill-badge">Weebly/Wix</span>
+       
+          </div>
+          <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img src="https://github.com/Pemoginns/chessgame/blob/main/hipster-green-chess-board-vector-chess-board-pattern-green-chess-board-vector-143090517.jpg?raw=true" alt="Email Campaigns" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">Rp Chess</h3>
+            <p class="text-sm">Python Chess made with pygame</p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4">This Python chess game uses Pygame for 2D rendering and event handling, providing an interactive GUI for playing chess.
+                          It supports importing FEN strings, allowing users to load and play from any valid board state, adding flexibility for analysis or resumed games.
+                          The code structure cleanly separates game logic, FEN parsing, and rendering, making it modular and easy to extend or integrate with chess engines. Backend stockfish evaluation and user rating system. Check it <a href="https://github.com/Pemoginns/chessgame" target="_blank">here</a></p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Pygame</span>
+            <span class="skill-badge">Stockfish Engine</span>
+         
+          </div>
+          <a href="https://github.com/Pemoginns/chessgame" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+      
+      <!-- Project 3 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img style="width: 75px; height: 100%; margin: auto;" src="https://images.squarespace-cdn.com/content/v1/5266941ee4b0bc5cd29e3461/1539357294571-PSDXFAYZOMMIKI5A3P1C/Catalyst+MR+2colour+logo.png?format=1500w" alt="Catalyst" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">Chat Bot</h3>
+            <p class="text-sm">Developed for a Market Research company in Dublin</p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4">This real-time chatbot server is built with Node.js, Express, and Socket.IO, providing an interactive web-based interface for collecting user feedback and delivering automated survey flows. It supports dynamic bot responses using GPT model, enabling flexible and intelligent conversations. The backend is designed for scalability and extensibility, with modular bot logic, optional message logging via MongoDB, and a frontend interface that can be customized or integrated into larger market research platforms.</p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">HTML</span>
+            <span class="skill-badge">Node.js</span>
+            <span class="skill-badge">GptAPI</span>
+            <span class="skill-badge">Socket.IO</span>
+          </div>
+          <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="max-w-6xl mx-auto p-6 fade-in delay-2">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">Skills & Technologies</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-code mr-2"></i>Languages</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Python</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> JavaScript</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Java</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> HTML/CSS</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-cogs mr-2"></i>Frameworks</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Flask</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> JQuery</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Tailwind CSS</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Bootstrap</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-tools mr-2"></i>Tools & More</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Git & GitHub</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> MySQL/SQLite</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> REST APIs</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Web Scraping</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="max-w-6xl mx-auto p-6 fade-in delay-3">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center">
+              <i class="fas fa-envelope text-green-700 text-xl mr-4"></i>
+              <a href="mailto:peter@example.com" class="text-green-700 hover:underline">workpmcg@gmail.com</a>
+            </li>
+            <li class="flex items-center">
+              <i class="fab fa-github text-green-700 text-xl mr-4"></i>
+              <a href="https://github.com/yourgithub" target="_blank" class="text-green-700 hover:underline">https://github.com/Pemoginns?tab=repositories</a>
+            </li>
+            <li class="flex items-center">
+              <i class="fab fa-linkedin text-green-700 text-xl mr-4"></i>
+              <a href="https://linkedin.com/in/yourlinkedin" target="_blank" class="text-green-700 hover:underline">https://www.linkedin.com/in/pmmg/</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <form
+            action="https://formspree.io/f/mkgrdlbo"
+            method="POST"
+          >
+            <label>
+              <label for="name" class="block mb-1" required>Name*</label>
+              <input type="text" name="Name" class="w-full p-2 border rounded">
+            </label>
+            <label>
+              <label for="name" class="block mb-1" required>Email*</label>
+              <input type="text" name="Email" class="w-full p-2 border rounded">
+            </label>
+            <label>
+               <label for="name" class="block mb-1" required>Message*</label>
+              <textarea type="text" name="Message" class="w-full p-2 border rounded"></textarea>
+            </label>
+            <!-- your other form fields go here -->
+            <button type="submit" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="text-center py-8 mt-12 text-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex justify-center space-x-6 mb-4">
+        <a href="https://github.com/Pemoginns?tab=repositories" target="_blank" class="hover:text-green-300">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/pmmg/" target="_blank" class="hover:text-green-300">
+          <i class="fab fa-linkedin text-2xl"></i>
+        </a>
+        <a href="mailto:workpmcg@gmail.com" class="hover:text-green-300">
+          <i class="fas fa-envelope text-2xl"></i>
+        </a>
+      </div>
+      <p>© 2025 Peter McGuinness. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
