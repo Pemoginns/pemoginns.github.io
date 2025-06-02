@@ -1,1 +1,1 @@
-nothing to read here
+Welcome to my personal web developer portfolio! This site showcases my skills, projects, and experience in full-stack web development. It's built to highlight modern web practices and provide a central hub for connecting with me professionally.
