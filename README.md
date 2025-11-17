@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Peter</h1>
 <h3 align="center">A web developer from Dublin, Ireland</h3>
 
-- 🔭 I’m currently working on **Chimatchi** and *Pitchd*
+- 🔭 I’m currently working on **Chimatchi** and **Pitchd**
 
 - 🌱 I’m currently learning **React,typescript**
 
