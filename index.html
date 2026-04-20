@@ -307,6 +307,11 @@ textarea.field { height: 96px; resize: none; }
 .footer-icons a { color: var(--text3); font-size: 0.95rem; text-decoration: none; transition: color 0.2s; }
 .footer-icons a:hover { color: #fff; }
 
+/* ── Mini Golf ───────────────────────────────────────── */
+.golf-wrap { margin-top: 36px; }
+.golf-hint { font-family: var(--mono); font-size: 0.62rem; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 7px; }
+#golf { display: block; width: 100%; max-width: 520px; height: 130px; border-radius: 10px; border: 1px solid var(--border); cursor: crosshair; touch-action: none; }
+
 /* ── Responsive ──────────────────────────────────────── */
 @media(max-width:860px){
   #nav { padding: 0 20px; }
@@ -356,6 +361,10 @@ textarea.field { height: 96px; resize: none; }
     <a class="btn btn-fill" href="#projects">View Projects <i class="fas fa-arrow-right"></i></a>
     <a class="btn btn-ghost" href="#contact">Get In Touch</a>
   </div>
+  <div class="golf-wrap r" style="transition-delay:0.35s;">
+    <div class="golf-hint">⛳ pull back &amp; release to putt</div>
+    <canvas id="golf"></canvas>
+  </div>
 </div>
 
 <hr class="div">
@@ -368,7 +377,7 @@ textarea.field { height: 96px; resize: none; }
 
     <a class="proj-card r d1" href="https://www.ferriswheels.shop" target="_blank">
       <div class="proj-top">
-        <div class="proj-icon"><i class="fas fa-bicycle"></i></div>
+        <div class="proj-icon"><img src="https://static.wixstatic.com/media/8d0cd9_4a8f0609c0844fa7934af0f5d42593d5~mv2.png" alt="Ferris Wheels"></div>
         <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
       </div>
       <div>
@@ -384,7 +393,7 @@ textarea.field { height: 96px; resize: none; }
 
     <a class="proj-card r d2" href="https://www.pitchd.dev" target="_blank">
       <div class="proj-top">
-        <div class="proj-icon"><i class="fas fa-map-location-dot"></i></div>
+        <div class="proj-icon"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzBkMGYxNCIvPjx0ZXh0IHg9IjQiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjgwMCIgZm9udC1zaXplPSIyMiIgZmlsbD0iI2ZmZmZmZiI+UC48L3RleHQ+PC9zdmc+" alt="Pitchd"></div>
         <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
       </div>
       <div>
@@ -400,7 +409,7 @@ textarea.field { height: 96px; resize: none; }
 
     <a class="proj-card r d3" href="https://chimatchi-production.up.railway.app/" target="_blank">
       <div class="proj-top">
-        <div class="proj-icon"><i class="fas fa-clone"></i></div>
+        <div class="proj-icon"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdDM0FFRCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0Y5NzMxNiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjgiIGZpbGw9InVybCgjZykiLz48dGV4dCB4PSIxNiIgeT0iMjMiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjayxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE5IiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+UDwvdGV4dD48L3N2Zz4=" alt="Chimatchi"></div>
         <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
       </div>
       <div>
@@ -547,6 +556,200 @@ document.getElementById('cform').addEventListener('submit', e => {
   [...e.currentTarget.elements].forEach(el => el.style.display = 'none');
   document.getElementById('formOk').style.display = 'flex';
 });
+
+// ── Mini Golf ──────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('golf');
+  const ctx = canvas.getContext('2d');
+  const W_MAX = 520, H = 130, WALL = 10, BALL_R = 7, HOLE_R = 11;
+  let W, holeX, holeY, bumpers;
+  let ball, state, aimPt, strokes, msg, msgAlpha;
+
+  function setup() {
+    W = Math.min(canvas.parentElement.offsetWidth, W_MAX);
+    canvas.width = W * devicePixelRatio;
+    canvas.height = H * devicePixelRatio;
+    canvas.style.height = H + 'px';
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    holeX = W - 55; holeY = H / 2;
+    bumpers = [
+      { x: W * 0.38, y: H * 0.35, r: 10 },
+      { x: W * 0.62, y: H * 0.65, r: 10 }
+    ];
+    reset();
+  }
+
+  function reset() {
+    ball = { x: 36, y: H / 2, vx: 0, vy: 0 };
+    state = 'idle'; aimPt = null; strokes = 0; msg = ''; msgAlpha = 0;
+  }
+
+  function pt(e) {
+    const r = canvas.getBoundingClientRect();
+    const sx = W / r.width, sy = H / r.height;
+    const src = e.touches ? e.touches[0] || e.changedTouches[0] : e;
+    return { x: (src.clientX - r.left) * sx, y: (src.clientY - r.top) * sy };
+  }
+
+  function shoot(p) {
+    const dx = ball.x - p.x, dy = ball.y - p.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 2) return;
+    const power = Math.min(dist, 120) / 120;
+    ball.vx = (dx / dist) * power * 12;
+    ball.vy = (dy / dist) * power * 12;
+    strokes++; state = 'rolling'; aimPt = null;
+  }
+
+  canvas.addEventListener('mousedown', e => { if (state !== 'idle') return; aimPt = pt(e); state = 'aiming'; });
+  canvas.addEventListener('mousemove', e => { if (state === 'aiming') aimPt = pt(e); });
+  canvas.addEventListener('mouseup',   e => { if (state === 'aiming') shoot(pt(e)); });
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); if (state !== 'idle') return; aimPt = pt(e); state = 'aiming'; }, { passive: false });
+  canvas.addEventListener('touchmove',  e => { e.preventDefault(); if (state === 'aiming') aimPt = pt(e); }, { passive: false });
+  canvas.addEventListener('touchend',   e => { e.preventDefault(); if (state === 'aiming') shoot(pt(e)); }, { passive: false });
+
+  function update() {
+    if (state !== 'rolling') return;
+    ball.vx *= 0.982; ball.vy *= 0.982;
+    ball.x += ball.vx; ball.y += ball.vy;
+
+    if (ball.y - BALL_R < WALL)        { ball.y = WALL + BALL_R;      ball.vy *= -0.65; }
+    if (ball.y + BALL_R > H - WALL)    { ball.y = H - WALL - BALL_R;  ball.vy *= -0.65; }
+    if (ball.x - BALL_R < 0)           { ball.x = BALL_R;             ball.vx *= -0.65; }
+    if (ball.x + BALL_R > W)           { ball.x = W - BALL_R;         ball.vx *= -0.65; }
+
+    for (const b of bumpers) {
+      const dx = ball.x - b.x, dy = ball.y - b.y, d = Math.sqrt(dx*dx+dy*dy);
+      if (d < BALL_R + b.r) {
+        const nx = dx/d, ny = dy/d, dot = ball.vx*nx + ball.vy*ny;
+        ball.vx = (ball.vx - 2*dot*nx) * 0.75;
+        ball.vy = (ball.vy - 2*dot*ny) * 0.75;
+        ball.x = b.x + (BALL_R + b.r + 1) * nx;
+        ball.y = b.y + (BALL_R + b.r + 1) * ny;
+      }
+    }
+
+    const dx = ball.x - holeX, dy = ball.y - holeY;
+    if (Math.sqrt(dx*dx+dy*dy) < HOLE_R - 2) {
+      state = 'holed';
+      msg = strokes === 1 ? 'Hole in one!' : strokes + ' strokes';
+      msgAlpha = 1;
+      setTimeout(reset, 2800);
+    }
+
+    if (Math.abs(ball.vx) + Math.abs(ball.vy) < 0.12) {
+      ball.vx = 0; ball.vy = 0; state = 'idle';
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Green
+    ctx.fillStyle = '#0e1a10';
+    ctx.beginPath(); ctx.roundRect(0, 0, W, H, 10); ctx.fill();
+
+    // Walls
+    ctx.fillStyle = '#162819';
+    ctx.fillRect(0, 0, W, WALL);
+    ctx.fillRect(0, H - WALL, W, WALL);
+
+    // Fairway stripes
+    for (let i = 0; i < W; i += 36) {
+      ctx.fillStyle = i % 72 === 0 ? 'rgba(255,255,255,0.012)' : 'rgba(0,0,0,0.05)';
+      ctx.fillRect(i, WALL, 18, H - 2*WALL);
+    }
+
+    // Tee mark
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.beginPath(); ctx.arc(36, H/2, 4, 0, Math.PI*2); ctx.fill();
+
+    // Bumpers
+    for (const b of bumpers) {
+      const g = ctx.createRadialGradient(b.x-2, b.y-2, 1, b.x, b.y, b.r);
+      g.addColorStop(0, '#2e5c33'); g.addColorStop(1, '#1a3b1e');
+      ctx.fillStyle = g;
+      ctx.strokeStyle = '#3a7042'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    }
+
+    // Hole
+    ctx.fillStyle = '#000';
+    ctx.beginPath(); ctx.arc(holeX, holeY, HOLE_R, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(holeX, holeY, HOLE_R, 0, Math.PI*2); ctx.stroke();
+
+    // Flag pole + flag
+    ctx.strokeStyle = '#bbb'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(holeX, holeY - HOLE_R + 1); ctx.lineTo(holeX, holeY - HOLE_R - 26); ctx.stroke();
+    ctx.fillStyle = '#e63946';
+    ctx.beginPath();
+    ctx.moveTo(holeX, holeY - HOLE_R - 26);
+    ctx.lineTo(holeX + 15, holeY - HOLE_R - 20);
+    ctx.lineTo(holeX, holeY - HOLE_R - 14);
+    ctx.fill();
+
+    // Aim line
+    if (state === 'aiming' && aimPt) {
+      const dx = ball.x - aimPt.x, dy = ball.y - aimPt.y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if (dist > 4) {
+        const power = Math.min(dist, 120) / 120;
+        const nx = dx/dist, ny = dy/dist;
+        ctx.save();
+        ctx.setLineDash([3, 5]);
+        ctx.strokeStyle = `rgba(255,255,255,${0.15 + power * 0.4})`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(ball.x, ball.y);
+        ctx.lineTo(ball.x + nx * Math.min(dist, 120) * 0.7, ball.y + ny * Math.min(dist, 120) * 0.7);
+        ctx.stroke();
+        ctx.restore();
+        // Power arc
+        ctx.strokeStyle = `rgba(255,255,255,${power * 0.5})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, BALL_R + 3, 0, Math.PI * 2 * power);
+        ctx.stroke();
+      }
+    }
+
+    // Ball
+    if (state !== 'holed') {
+      const g = ctx.createRadialGradient(ball.x-2, ball.y-2, 1, ball.x, ball.y, BALL_R);
+      g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#d0d0d0');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, BALL_R, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      [[-2,-2],[2,-1],[-1,2],[2,2],[-3,0],[0,-3]].forEach(([dx,dy]) => {
+        ctx.beginPath(); ctx.arc(ball.x+dx, ball.y+dy, 1.1, 0, Math.PI*2); ctx.fill();
+      });
+    }
+
+    // Stroke counter
+    if (strokes > 0 && state !== 'holed') {
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.font = '10px DM Mono, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('strokes: ' + strokes, 8, H - 4);
+    }
+
+    // Win message
+    if (msgAlpha > 0) {
+      if (state === 'holed') msgAlpha = Math.max(0, msgAlpha - 0.008);
+      ctx.fillStyle = `rgba(255,255,255,${msgAlpha})`;
+      ctx.font = 'bold 17px Space Grotesk, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(msg, W/2, H/2 + 6);
+    }
+  }
+
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+  setup();
+  window.addEventListener('resize', setup);
+  loop();
+})();
 
 // ── Persist scroll ─────────────────────────────────────
 window.addEventListener('scroll', () => localStorage.setItem('pm-y', window.scrollY), { passive: true });
