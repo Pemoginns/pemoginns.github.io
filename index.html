@@ -1,319 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of Peter McGuinness, Junior Software Engineer & Web Developer">
-  <meta property="og:title" content="Peter McGuinness | Developer Portfolio">
-  <meta property="og:description" content="Portfolio of Peter McGuinness, showcasing web and software development projects.">
-    <link rel="icon" type="image/x-icon" href="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/favicon-32x32.png?raw=true">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Peter McGuinness — Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Peter McGuinness | Developer Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    /* Animations and Transitions */
-    .fade-in{opacity:0;animation:fadeIn ease-in 1s forwards;}
+:root {
+  --bg:      #080808;
+  --card:    #111111;
+  --border:  #1e1e1e;
+  --border2: #2e2e2e;
+  --text:    #efefef;
+  --text2:   #777777;
+  --text3:   #383838;
+  --font:    'Space Grotesk', system-ui, sans-serif;
+  --mono:    'DM Mono', monospace;
+  --max:     1080px;
+  --r:       12px;
+}
 
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.4s; }
-    .delay-3 { animation-delay: 0.6s; }
+html { scroll-behavior: smooth; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
 
-    /* Ireland-inspired gradient background */
-    .scroll-bg {
-      background: linear-gradient(-45deg, #169b62, #2a913c, #0f7e3a, #006837);
-      background-size: 400% 400%;
-      animation: gradientScroll 15s ease infinite;
-    }
+/* ── Fixed deep background layers ───────────────────── */
+/* Layer 1: noise grain */
+#grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
 
-    @keyframes gradientScroll {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
+/* Layer 2: dot grid */
+#grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, rgba(0,0,0,0.6) 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 40%, rgba(0,0,0,0.6) 0%, transparent 100%);
+}
 
-    /* Project card hover effects */
-    .project-card {
-      padding-bottom:20px;
-      width: 100%;
-      transition: all 0.3s ease;
-      overflow: hidden;
-      position: relative;
-    }
+/* Layer 3: radial vignette */
+#vignette {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 70% at 50% 30%, transparent 40%, rgba(0,0,0,0.65) 100%);
+}
 
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
+/* Layer 4: ambient light blobs */
+#blob1, #blob2 {
+  position: fixed; border-radius: 50%;
+  pointer-events: none; z-index: 0; filter: blur(160px);
+}
+#blob1 { width: 900px; height: 900px; top: -350px; right: -250px; background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 65%); }
+#blob2 { width: 700px; height: 700px; bottom: -100px; left: -200px; background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 65%); }
 
-    .project-details {
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.5s ease, opacity 0.3s ease;
-      overflow: hidden;
-    }
+/* ── Scroll progress ─────────────────────────────────── */
+#bar {
+  position: fixed; top: 0; left: 0; height: 1px; width: 0%;
+  background: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+  z-index: 200; transition: width 0.06s linear;
+}
 
-    .project-card:hover .project-details {
-      max-height: 500px;
-      opacity: 1;
-    }
+/* ── Nav ─────────────────────────────────────────────── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px; padding: 0 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(28px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.025), 0 12px 40px rgba(0,0,0,0.6);
+}
+.nav-brand { font-family: var(--mono); font-size: 0.82rem; color: #fff; letter-spacing: 0.06em; }
+.nav-brand em { color: var(--text3); font-style: normal; }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  color: var(--text2); font-size: 0.83rem; font-weight: 500;
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: #fff; transform: scaleX(0);
+  transform-origin: left; transition: transform 0.25s ease;
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-icons { display: flex; gap: 18px; }
+.nav-icons a { color: var(--text3); font-size: 0.95rem; text-decoration: none; transition: color 0.2s; }
+.nav-icons a:hover { color: #fff; }
 
-    .project-image {
-      width: 80px;
-      height: 80px;
-      max-width:100%;
-      max-height: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-right: 16px;
-      float: left;
-    }
+/* ── Reveal ──────────────────────────────────────────── */
+.r { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1); }
+.r.in { opacity: 1; transform: none; }
+.r.d1 { transition-delay: 0.07s; }
+.r.d2 { transition-delay: 0.14s; }
+.r.d3 { transition-delay: 0.21s; }
+.r.d4 { transition-delay: 0.28s; }
 
-    .link-underline {
-      position: relative;
-      display: inline-block;
-    }
+/* ── Hero ────────────────────────────────────────────── */
+#hero {
+  position: relative; z-index: 1;
+  max-width: var(--max); margin: 0 auto;
+  padding: 170px 44px 110px;
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  will-change: transform;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.72rem;
+  color: var(--text2); letter-spacing: 0.16em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--text3); display: block; }
+.hero-h1 {
+  font-size: clamp(3.2rem, 7.5vw, 6rem);
+  font-weight: 700; line-height: 1.0; letter-spacing: -0.035em;
+  margin-bottom: 24px; color: #fff;
+  text-shadow: 0 2px 40px rgba(255,255,255,0.06);
+}
+.hero-h1 span { color: #fff; }
+.hero-sub { font-size: 1.05rem; color: var(--text2); font-weight: 400; max-width: 480px; line-height: 1.6; margin-bottom: 12px; }
+.hero-desc { font-size: 0.875rem; color: var(--text3); max-width: 400px; line-height: 1.8; margin-bottom: 44px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    .link-underline::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      transform: scaleX(0);
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background-color: #2a913c;
-      transform-origin: bottom right;
-      transition: transform 0.3s ease-out;
-    }
+/* Cursor */
+.cursor { display: inline-block; width: 3px; height: 0.9em; background: #fff; margin-left: 3px; vertical-align: middle; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
 
-    .link-underline:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
-    }
+/* ── Buttons ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+  padding: 11px 26px; border-radius: var(--r);
+  text-decoration: none; cursor: pointer; border: none;
+  letter-spacing: 0.02em; transition: all 0.22s;
+}
+.btn-fill {
+  background: #fff; color: #080808;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(255,255,255,0.08);
+}
+.btn-fill:hover { background: #e8e8e8; box-shadow: 0 0 0 1px rgba(255,255,255,0.2), 0 8px 32px rgba(255,255,255,0.12); transform: translateY(-2px); }
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text2);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #fff; background: rgba(255,255,255,0.07); transform: translateY(-2px); }
 
-    .skill-badge {
-      display: inline-block;
-      background-color: #e2f3eb;
-      color: #0f7e3a;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-  </style>
+/* ── Dividers ────────────────────────────────────────── */
+.div {
+  max-width: var(--max); margin: 0 auto; height: 1px; border: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.06) 75%, transparent);
+}
+
+/* ── Sections ────────────────────────────────────────── */
+.sec { max-width: var(--max); margin: 0 auto; padding: 100px 44px; position: relative; z-index: 1; }
+.sec-label {
+  font-family: var(--mono); font-size: 0.68rem; color: var(--text3);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.sec-label::before { content: ''; width: 18px; height: 1px; background: var(--text3); display: block; }
+.sec-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700;
+  letter-spacing: -0.03em; color: #fff; margin-bottom: 52px;
+  text-shadow: 0 2px 30px rgba(255,255,255,0.05);
+}
+
+/* ── Project cards ───────────────────────────────────── */
+.proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; perspective: 1200px; }
+
+.proj-card {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 100%),
+    var(--card);
+  border: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
+  padding: 26px 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  text-decoration: none; position: relative; overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 -1px 0 rgba(0,0,0,0.5) inset,
+    0 4px 16px rgba(0,0,0,0.5),
+    0 16px 48px rgba(0,0,0,0.3);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+/* glass shimmer */
+.proj-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.proj-card:hover { border-color: rgba(255,255,255,0.14); }
+.proj-card:hover::before { opacity: 1; }
+
+.proj-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.proj-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  border: 1px solid var(--border2); background: #1a1a1a;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.proj-icon img { width: 100%; height: 100%; object-fit: cover; }
+.proj-icon i { color: var(--text3); font-size: 1.1rem; }
+.proj-arrow { color: var(--text3); font-size: 0.8rem; transition: color 0.2s, transform 0.2s; }
+.proj-card:hover .proj-arrow { color: #fff; transform: translate(3px,-3px); }
+.proj-name { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 5px; }
+.proj-desc { font-size: 0.83rem; color: var(--text2); line-height: 1.65; flex: 1; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.proj-tag {
+  font-family: var(--mono); font-size: 0.65rem; color: var(--text3);
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  padding: 2px 8px; border-radius: 5px; letter-spacing: 0.02em;
+}
+
+/* ── Skills ──────────────────────────────────────────── */
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.skill-card {
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.035) 0%, transparent 100%),
+    var(--card);
+  border: 1px solid var(--border);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 24px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 4px 16px rgba(0,0,0,0.5),
+    0 16px 48px rgba(0,0,0,0.25);
+}
+.skill-head {
+  font-family: var(--mono); font-size: 0.68rem; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+}
+.skill-head i { font-size: 0.8rem; }
+.skill-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.875rem; color: var(--text2); padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.skill-item:last-child { border-bottom: none; }
+.skill-dot { width: 4px; height: 4px; border-radius: 50%; background: #555; flex-shrink: 0; }
+
+/* ── Contact ─────────────────────────────────────────── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 52px; align-items: start; }
+.contact-blurb { font-size: 0.9rem; color: var(--text2); line-height: 1.8; margin-bottom: 28px; }
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.c-link {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text2); font-size: 0.875rem;
+  transition: color 0.2s;
+}
+.c-link:hover { color: #fff; }
+.c-link-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: #151515; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3); font-size: 0.8rem;
+  transition: border-color 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.c-link:hover .c-link-icon { border-color: #444; color: #fff; }
+
+.field-label { font-family: var(--mono); font-size: 0.65rem; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.field {
+  width: 100%; padding: 11px 14px; margin-bottom: 14px;
+  background: #0f0f0f; border: 1px solid var(--border);
+  border-radius: var(--r); color: var(--text); font-family: var(--font);
+  font-size: 0.875rem; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 2px 8px rgba(0,0,0,0.4);
+}
+.field:focus { border-color: #3a3a3a; box-shadow: 0 0 0 3px rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.4); }
+textarea.field { height: 96px; resize: none; }
+.form-ok { display: none; align-items: center; gap: 8px; color: #fff; font-size: 0.875rem; padding: 12px 0; }
+
+/* ── Footer ──────────────────────────────────────────── */
+#footer {
+  max-width: var(--max); margin: 0 auto;
+  padding: 28px 44px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  position: relative; z-index: 1;
+}
+.footer-copy { font-family: var(--mono); font-size: 0.72rem; color: var(--text3); }
+.footer-icons { display: flex; gap: 18px; }
+.footer-icons a { color: var(--text3); font-size: 0.95rem; text-decoration: none; transition: color 0.2s; }
+.footer-icons a:hover { color: #fff; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media(max-width:860px){
+  #nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  #hero, .sec { padding-left: 20px; padding-right: 20px; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  #footer { flex-direction: column; gap: 14px; text-align: center; }
+}
+</style>
 </head>
-<body class="text-gray-800 scroll-bg">
-  <header class="bg-white shadow-md p-4 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold fade-in">Peter McGuinness</h1>
-      <div class="flex items-center gap-4">
-        <nav class="hidden md:flex gap-4">
-          <a href="#about" class="text-green-800 link-underline hover:text-green-600">About</a>
-          <a href="#projects" class="text-green-800 link-underline hover:text-green-600">Projects</a>
-          <a href="#skills" class="text-green-800 link-underline hover:text-green-600">Skills</a>
-          <a href="#contact" class="text-green-800 link-underline hover:text-green-600">Contact</a>
-        </nav>
-      </div>
-    </div>
-  </header>
+<body>
 
-  <section id="about" class="max-w-6xl mx-auto p-6 text-center fade-in">
-    <div class="bg-white rounded-xl p-8 shadow-lg max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold mb-4">Junior Software Engineer & Web Developer</h2>
-      <p class="text-lg mb-6">I'm a passionate IT graduate with experience in front-end and back-end development, ready to contribute to real-world tech projects in fast-paced environments.</p>
-      <div class="flex justify-center gap-4">
-        <a href="#projects" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">View My Work</a>
-        <a href="#contact" class="border border-green-700 text-green-700 hover:bg-green-50 px-6 py-2 rounded-full transition">Contact Me</a>
-      </div>
-    </div>
-  </section>
+<!-- Fixed depth layers -->
+<div id="grain"></div>
+<div id="grid"></div>
+<div id="vignette"></div>
+<div id="blob1"></div>
+<div id="blob2"></div>
+<div id="bar"></div>
 
- <section id="projects" class="max-w-6xl mx-auto p-6 fade-in delay-1">
-  <h2 class="text-3xl font-bold mb-8 text-center text-white">Projects</h2>
-  <div class="flex flex-col gap-6">
-    
-    <!-- Project 1 -->
-    <div class="project-card bg-white p-6 rounded-xl shadow-lg">
-      <div class="flex items-start mb-4">
-        <img src="https://github.com/Pemoginns/pemoginns.github.io/blob/main/portfolio/portfolioImages/FerrisWheelImgForPortfolio.png?raw=true" alt="FerrisWheelsImg" class="project-image">
-        <div>
-          <h3 class="font-bold text-xl text-green-800 mb-2">Ferris Wheels</h3>
-          <p class="text-sm">Website Redesign for a local bike shop</p>
-        </div>
-      </div>
-      <div class="project-details">
-        <p class="mb-4">
-          FerrisWheels.ie is a straight forward site built with Wix. This site was finished in summer 2025 but is still awaiting some patching.
-        </p>
-        <div class="flex flex-wrap mb-4">
-          <span class="skill-badge">HTML</span>
-          <span class="skill-badge">Bootstrap</span>
-          <span class="skill-badge">Weebly/Wix</span>
-        </div>
-        <a href="www.ferriswheels.shop" class="text-green-700 hover:underline font-semibold">View Project →</a>
-      </div>
-    </div>
+<!-- Nav -->
+<nav id="nav">
+  <div class="nav-brand"><em>~/</em>petermcguinness</div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-icons">
+    <a href="https://github.com/Pemoginns" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/pmmg/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:workpmcg@gmail.com"><i class="fas fa-envelope"></i></a>
+  </div>
+</nav>
 
-    <!-- Project 2 -->
-    <div class="project-card bg-white p-6 rounded-xl shadow-lg">
-      <div class="flex items-start mb-4">
-        <img src="portfolio/portfolioImages/ChessDarkmode.png" alt="Email Campaigns" class="project-image">
-        <div>
-          <h3 class="font-bold text-xl text-green-800 mb-2">Rp Chess</h3>
-          <p class="text-sm">Python Chess made with pygame</p>
-        </div>
-      </div>
-      <div class="project-details">
-        <p class="mb-4">
-          This Python chess game uses Pygame for 2D rendering and event handling, providing an interactive GUI for playing chess.
-          It supports importing FEN strings, allowing users to load and play from any valid board state, adding flexibility for analysis or resumed games.
-          The code structure cleanly separates game logic, FEN parsing, and rendering, making it modular and easy to extend or integrate with chess engines.
-          Backend stockfish evaluation and user rating system. Check it <a href="https://github.com/Pemoginns/chessgame" target="_blank">here</a>.
-        </p>
-        <div class="flex flex-wrap mb-4">
-          <span class="skill-badge">Python</span>
-          <span class="skill-badge">Pygame</span>
-          <span class="skill-badge">Stockfish Engine</span>
-        </div>
-        <a href="https://github.com/Pemoginns/chessgame" class="text-green-700 hover:underline font-semibold">View Project →</a>
-      </div>
-    </div>
+<!-- Hero -->
+<div id="hero">
+  <div class="hero-eyebrow r">Available for work</div>
+  <h1 class="hero-h1 r d1">
+    Peter<br><span id="typed"></span><span class="cursor"></span>
+  </h1>
+  <p class="hero-sub r d2">Junior Software Engineer &amp; Web Developer</p>
+  <p class="hero-desc r d3">IT graduate from the University of Galway. I build full-stack web apps, APIs, maps, and interactive experiences.</p>
+  <div class="hero-ctas r d4">
+    <a class="btn btn-fill" href="#projects">View Projects <i class="fas fa-arrow-right"></i></a>
+    <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+  </div>
+</div>
 
-    <!-- Project 3 -->
-    <div class="project-card bg-white p-6 rounded-xl shadow-lg">
-      <div class="flex items-start mb-4">
-        <img style="width: 75px; height: 100%;" src="https://images.squarespace-cdn.com/content/v1/5266941ee4b0bc5cd29e3461/1539357294571-PSDXFAYZOMMIKI5A3P1C/Catalyst+MR+2colour+logo.png?format=1500w" alt="Catalyst" class="project-image">
-        <div>
-          <h3 class="font-bold text-xl text-green-800 mb-2">Chat Bot</h3>
-          <p class="text-sm">Developed for a Market Research company in Dublin</p>
-        </div>
+<hr class="div">
+
+<!-- Projects -->
+<div class="sec" id="projects">
+  <div class="sec-label r">Selected work</div>
+  <h2 class="sec-title r d1">Projects</h2>
+  <div class="proj-grid">
+
+    <a class="proj-card r d1" href="https://www.ferriswheels.shop" target="_blank">
+      <div class="proj-top">
+        <div class="proj-icon"><i class="fas fa-bicycle"></i></div>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
       </div>
-      <div class="project-details">
-        <p class="mb-4">
-          This real-time chatbot server is built with Node.js, Express, and Socket.IO, providing an interactive web-based interface for collecting user feedback and delivering automated survey flows. 
-          It supports dynamic bot responses using GPT model, enabling flexible and intelligent conversations.
-          The backend is designed for scalability and extensibility, with modular bot logic, optional message logging via MongoDB, and a frontend interface that can be customized or integrated into larger market research platforms.
-        </p>
-        <div class="flex flex-wrap mb-4">
-          <span class="skill-badge">HTML</span>
-          <span class="skill-badge">Node.js</span>
-          <span class="skill-badge">GptAPI</span>
-          <span class="skill-badge">Socket.IO</span>
-        </div>
-        <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+      <div>
+        <div class="proj-name">Ferris Wheels</div>
+        <p class="proj-desc">Website redesign for a local bike shop — responsive layout, rebuilt with modern tooling.</p>
       </div>
+      <div class="proj-tags">
+        <span class="proj-tag">HTML</span>
+        <span class="proj-tag">Bootstrap</span>
+        <span class="proj-tag">Wix</span>
+      </div>
+    </a>
+
+    <a class="proj-card r d2" href="https://www.pitchd.dev" target="_blank">
+      <div class="proj-top">
+        <div class="proj-icon"><i class="fas fa-map-location-dot"></i></div>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </div>
+      <div>
+        <div class="proj-name">Pitchd</div>
+        <p class="proj-desc">Find local sports pitches in Ireland via OpenStreetMap. Filter by sport, get live directions.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">OpenStreetMap</span>
+        <span class="proj-tag">REST API</span>
+      </div>
+    </a>
+
+    <a class="proj-card r d3" href="https://chimatchi-production.up.railway.app/" target="_blank">
+      <div class="proj-top">
+        <div class="proj-icon"><i class="fas fa-clone"></i></div>
+        <i class="fas fa-arrow-up-right-from-square proj-arrow"></i>
+      </div>
+      <div>
+        <div class="proj-name">Chimatchi</div>
+        <p class="proj-desc">French-language card matching memory game — live web app deployed on Railway.</p>
+      </div>
+      <div class="proj-tags">
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">Node.js</span>
+        <span class="proj-tag">Railway</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- Skills -->
+<div class="sec" id="skills">
+  <div class="sec-label r">Toolkit</div>
+  <h2 class="sec-title r d1">Skills &amp; Technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-card r d1">
+      <div class="skill-head"><i class="fas fa-code"></i>Languages</div>
+      <div class="skill-item"><div class="skill-dot"></div>Python</div>
+      <div class="skill-item"><div class="skill-dot"></div>JavaScript</div>
+      <div class="skill-item"><div class="skill-dot"></div>Java</div>
+      <div class="skill-item"><div class="skill-dot"></div>HTML / CSS</div>
+    </div>
+    <div class="skill-card r d2">
+      <div class="skill-head"><i class="fas fa-layer-group"></i>Frameworks</div>
+      <div class="skill-item"><div class="skill-dot"></div>Flask</div>
+      <div class="skill-item"><div class="skill-dot"></div>Node.js / Express</div>
+      <div class="skill-item"><div class="skill-dot"></div>Tailwind CSS</div>
+      <div class="skill-item"><div class="skill-dot"></div>Bootstrap</div>
+    </div>
+    <div class="skill-card r d3">
+      <div class="skill-head"><i class="fas fa-wrench"></i>Tools</div>
+      <div class="skill-item"><div class="skill-dot"></div>Git &amp; GitHub</div>
+      <div class="skill-item"><div class="skill-dot"></div>MySQL / SQLite</div>
+      <div class="skill-item"><div class="skill-dot"></div>REST APIs</div>
+      <div class="skill-item"><div class="skill-dot"></div>Socket.IO</div>
     </div>
   </div>
-</section>
+</div>
 
+<hr class="div">
 
-  <section id="skills" class="max-w-6xl mx-auto p-6 fade-in delay-2">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-8 text-center">Skills & Technologies</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-code mr-2"></i>Languages</h3>
-          <ul class="space-y-2">
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Python</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> JavaScript</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Java</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> HTML/CSS</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-cogs mr-2"></i>Frameworks</h3>
-          <ul class="space-y-2">
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Flask</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> JQuery</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Tailwind CSS</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Bootstrap</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-tools mr-2"></i>Tools & More</h3>
-          <ul class="space-y-2">
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Git & GitHub</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> MySQL/SQLite</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> REST APIs</li>
-            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Web Scraping</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="max-w-6xl mx-auto p-6 fade-in delay-3">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
-          <ul class="space-y-4">
-            <li class="flex items-center">
-              <i class="fas fa-envelope text-green-700 text-xl mr-4"></i>
-              <a href="mailto:peter@example.com" class="text-green-700 hover:underline">workpmcg@gmail.com</a>
-            </li>
-            <li class="flex items-center">
-              <i class="fab fa-github text-green-700 text-xl mr-4"></i>
-              <a href="https://github.com/yourgithub" target="_blank" class="text-green-700 hover:underline">https://github.com/Pemoginns?tab=repositories</a>
-            </li>
-            <li class="flex items-center">
-              <i class="fab fa-linkedin text-green-700 text-xl mr-4"></i>
-              <a href="https://linkedin.com/in/yourlinkedin" target="_blank" class="text-green-700 hover:underline">https://www.linkedin.com/in/pmmg/</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <form
-            action="https://formspree.io/f/mkgrdlbo"
-            method="POST"
-          >
-            <label>
-              <label for="name" class="block mb-1" required>Name*</label>
-              <input type="text" name="Name" class="w-full p-2 border rounded">
-            </label>
-            <label>
-              <label for="name" class="block mb-1" required>Email*</label>
-              <input type="text" name="Email" class="w-full p-2 border rounded">
-            </label>
-            <label>
-               <label for="name" class="block mb-1" required>Message*</label>
-              <textarea type="text" name="Message" class="w-full p-2 border rounded"></textarea>
-            </label>
-            <!-- your other form fields go here -->
-            <button type="submit" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">Send</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <footer class="text-center py-8 mt-12 text-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex justify-center space-x-6 mb-4">
-        <a href="https://github.com/Pemoginns?tab=repositories" target="_blank" class="hover:text-green-300">
-          <i class="fab fa-github text-2xl"></i>
+<!-- Contact -->
+<div class="sec" id="contact">
+  <div class="sec-label r">Let's talk</div>
+  <h2 class="sec-title r d1">Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="r d1">
+      <p class="contact-blurb">Open to junior roles, freelance projects, and interesting collaborations. Drop me a message.</p>
+      <div class="contact-links">
+        <a class="c-link" href="mailto:workpmcg@gmail.com">
+          <div class="c-link-icon"><i class="fas fa-envelope"></i></div>workpmcg@gmail.com
         </a>
-        <a href="https://www.linkedin.com/in/pmmg/" target="_blank" class="hover:text-green-300">
-          <i class="fab fa-linkedin text-2xl"></i>
+        <a class="c-link" href="https://github.com/Pemoginns" target="_blank">
+          <div class="c-link-icon"><i class="fab fa-github"></i></div>github.com/Pemoginns
         </a>
-        <a href="mailto:workpmcg@gmail.com" class="hover:text-green-300">
-          <i class="fas fa-envelope text-2xl"></i>
+        <a class="c-link" href="https://www.linkedin.com/in/pmmg/" target="_blank">
+          <div class="c-link-icon"><i class="fab fa-linkedin"></i></div>linkedin.com/in/pmmg
         </a>
       </div>
-      <p>© 2025 Peter McGuinness. All rights reserved.</p>
     </div>
-  </footer>
+    <form class="r d2" id="cform">
+      <label class="field-label">Name</label>
+      <input class="field" type="text" placeholder="Your name" required>
+      <label class="field-label">Email</label>
+      <input class="field" type="email" placeholder="you@email.com" required>
+      <label class="field-label">Message</label>
+      <textarea class="field" placeholder="What's on your mind?" required></textarea>
+      <button class="btn btn-fill" type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+      <div class="form-ok" id="formOk"><i class="fas fa-check-circle"></i> Message sent — I'll be in touch!</div>
+    </form>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-copy">© 2025 Peter McGuinness</div>
+  <div class="footer-icons">
+    <a href="https://github.com/Pemoginns" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/pmmg/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:workpmcg@gmail.com"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+<script>
+// ── Scroll progress ────────────────────────────────────
+window.addEventListener('scroll', onScroll, { passive: true });
+function onScroll() {
+  const pct = window.scrollY / (document.body.scrollHeight - innerHeight) * 100;
+  document.getElementById('bar').style.width = Math.min(pct, 100) + '%';
+  // Parallax hero — moves at 35% of scroll speed
+  document.getElementById('hero').style.transform = `translateY(${window.scrollY * 0.35}px)`;
+  // Blobs drift slightly
+  document.getElementById('blob1').style.transform = `translateY(${window.scrollY * 0.08}px)`;
+  document.getElementById('blob2').style.transform = `translateY(${-window.scrollY * 0.06}px)`;
+}
+
+// ── Scroll reveal ──────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+// ── 3D card tilt on mouse move ─────────────────────────
+document.querySelectorAll('.proj-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg) translateZ(8px)`;
+    card.style.boxShadow = `
+      ${-x * 20}px ${y * 20}px 40px rgba(0,0,0,0.6),
+      ${-x * 6}px ${y * 6}px 16px rgba(0,0,0,0.4),
+      0 1px 0 rgba(255,255,255,0.06) inset
+    `;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+    card.style.transition = 'transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.5s ease, border-color 0.3s';
+    setTimeout(() => card.style.transition = '', 500);
+  });
+});
+
+// ── Typing animation ───────────────────────────────────
+const typed = document.getElementById('typed');
+const word = 'McGuinness';
+let ci = 0;
+function type() {
+  typed.textContent = word.slice(0, ++ci);
+  if (ci < word.length) setTimeout(type, 85);
+}
+setTimeout(type, 700);
+
+// ── Contact form ───────────────────────────────────────
+document.getElementById('cform').addEventListener('submit', e => {
+  e.preventDefault();
+  [...e.currentTarget.elements].forEach(el => el.style.display = 'none');
+  document.getElementById('formOk').style.display = 'flex';
+});
+
+// ── Persist scroll ─────────────────────────────────────
+window.addEventListener('scroll', () => localStorage.setItem('pm-y', window.scrollY), { passive: true });
+const sy = localStorage.getItem('pm-y');
+if (sy) window.scrollTo(0, +sy);
+</script>
 </body>
 </html>
-
