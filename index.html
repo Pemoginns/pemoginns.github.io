@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Peter McGuinness, Junior Software Engineer & Web Developer">
+  <title>Peter McGuinness | Developer Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Animations and Transitions */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn ease-in 1s forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ireland-inspired gradient background */
+    .scroll-bg {
+      background: linear-gradient(-45deg, #169b62, #2a913c, #0f7e3a, #006837);
+      background-size: 400% 400%;
+      animation: gradientScroll 15s ease infinite;
+    }
+
+    @keyframes gradientScroll {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Project card hover effects */
+    .project-card {
+      transition: all 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .project-details {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+
+    .project-card:hover .project-details {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .project-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 16px;
+      float: left;
+    }
+
+    .link-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #2a913c;
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .link-underline:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .skill-badge {
+      display: inline-block;
+      background-color: #e2f3eb;
+      color: #0f7e3a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body class="text-gray-800 scroll-bg">
+  <header class="bg-white shadow-md p-4 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold fade-in">Peter McGuinness</h1>
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex gap-4">
+          <a href="#about" class="text-green-800 link-underline hover:text-green-600">About</a>
+          <a href="#projects" class="text-green-800 link-underline hover:text-green-600">Projects</a>
+          <a href="#skills" class="text-green-800 link-underline hover:text-green-600">Skills</a>
+          <a href="#contact" class="text-green-800 link-underline hover:text-green-600">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section id="about" class="max-w-6xl mx-auto p-6 text-center fade-in">
+    <div class="bg-white rounded-xl p-8 shadow-lg max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4">Junior Software Engineer & Web Developer</h2>
+      <p class="text-lg mb-6">I'm a passionate IT graduate with experience in front-end and back-end development, ready to contribute to real-world tech projects in fast-paced environments.</p>
+      <div class="flex justify-center gap-4">
+        <a href="#projects" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">View My Work</a>
+        <a href="#contact" class="border border-green-700 text-green-700 hover:bg-green-50 px-6 py-2 rounded-full transition">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="max-w-6xl mx-auto p-6 fade-in delay-1">
+    <h2 class="text-3xl font-bold mb-8 text-center text-white">Projects</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Project 1 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img src="https://via.placeholder.com/80" alt="Sports Pitch Locator" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">Fullstack Sports Pitch Locator</h3>
+            <p class="text-sm">Interactive map app for finding sports facilities</p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4">A full-stack application that allows users to search, add, and review sports pitches in their local area. Features real-time updates and user authentication.</p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Flask</span>
+            <span class="skill-badge">Leaflet.js</span>
+            <span class="skill-badge">SQLite</span>
+          </div>
+          <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+      
+      <!-- Project 2 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img src="https://via.placeholder.com/80" alt="Email Campaigns" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">HTML Email Campaigns</h3>
+            <p class="text-sm">Responsive email templates for retail clients</p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4">Designed and developed responsive HTML email templates for various retail clients, ensuring compatibility across all major email clients and devices.</p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">HTML</span>
+            <span class="skill-badge">CSS</span>
+            <span class="skill-badge">Email Design</span>
+            <span class="skill-badge">Responsive</span>
+          </div>
+          <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+      
+      <!-- Project 3 -->
+      <div class="project-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start mb-4">
+          <img src="https://via.placeholder.com/80" alt="Web Scraper" class="project-image">
+          <div>
+            <h3 class="font-bold text-xl text-green-800 mb-2">Web Scraper</h3>
+            <p class="text-sm">Public data collection for local government</p>
+          </div>
+        </div>
+        <div class="project-details">
+          <p class="mb-4">Python-based web scraper that collects and organizes public sports facilities data from various government websites into structured datasets.</p>
+          <div class="flex flex-wrap mb-4">
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">BeautifulSoup</span>
+            <span class="skill-badge">Data Processing</span>
+            <span class="skill-badge">CSV</span>
+          </div>
+          <a href="#" class="text-green-700 hover:underline font-semibold">View Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="business-model" class="max-w-6xl mx-auto p-6 fade-in delay-2">
+    <div class="bg-gray-900 text-white rounded-3xl shadow-2xl p-8 lg:p-12">
+      <div class="max-w-4xl mx-auto space-y-8">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">The Business Model: Website Audit as a Service (WaaS)</h2>
+          <p class="text-gray-300 text-lg leading-8">A repeatable approach for freelance web developers and founders: find small businesses with broken or underperforming websites, give them a free diagnosis, then sell the fix.</p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">The Core Idea</h3>
+            <p class="text-gray-300">You find small businesses with bad websites, show them exactly what's wrong for free, then charge them to fix it. The audit is the sales tool. The fix is the product.</p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">Why It Works</h3>
+            <p class="text-gray-300">Most small hospitality businesses have a website because someone told them they needed one — but nobody ever told them whether it was actually working. When you show up and say "here's exactly what's costing you bookings," you're solving a problem they already have but didn't know they could fix.</p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">How It Works — Step by Step</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-3">
+              <li>Identify pubs, cafes, tradesmen, and other small businesses with a website that's likely losing customers.</li>
+              <li>Review poor UX, slow load times, bad mobile design, or missing calls to action.</li>
+              <li>Record a short 2–3 minute video audit showing the problems in plain language.</li>
+              <li>Send it unsolicited for free and wait for replies from interested business owners.</li>
+              <li>Offer to fix the issues and convert the free audit into paid work.</li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">The Revenue Ladder</h3>
+            <ul class="list-disc list-inside text-gray-300 space-y-3">
+              <li>Start with a low-cost audit report for €25–50 to open the door.</li>
+              <li>Upgrade to a €100–200 improvement roadmap after the first review.</li>
+              <li>Deliver actual Wix Studio implementation at €200–500+ once trust is built.</li>
+              <li>Scale into monthly retainers for ongoing updates and maintenance.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">What Makes It Zero-Budget</h3>
+            <p class="text-gray-300">No paid tools needed. Loom, email, Google Maps and AI prompting are all free or low-cost. Your time and web development skill are the only real investment.</p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold text-white">The Scalability Path</h3>
+            <p class="text-gray-300">After 5–10 case studies, charge upfront for audits. After 10–15 retained clients, hire a junior developer to handle implementation while you focus on sales and audits. The audit becomes a productised process.</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4">In One Sentence</h3>
+          <p class="text-gray-300">You trade a free 3-minute video for the right to have a sales conversation, and you win that conversation by already having solved half the problem before they've said yes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="max-w-6xl mx-auto p-6 fade-in delay-2">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">Skills & Technologies</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-code mr-2"></i>Languages</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Python</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> JavaScript</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Java</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> HTML/CSS</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-cogs mr-2"></i>Frameworks</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Flask</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> FastAPI</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Tailwind CSS</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Bootstrap</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-xl mb-4 text-green-700"><i class="fas fa-tools mr-2"></i>Tools & More</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Git & GitHub</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> MySQL/SQLite</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> REST APIs</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-600 mr-2"></i> Web Scraping</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="max-w-6xl mx-auto p-6 fade-in delay-3">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center">
+              <i class="fas fa-envelope text-green-700 text-xl mr-4"></i>
+              <a href="mailto:peter@example.com" class="text-green-700 hover:underline">peter@example.com</a>
+            </li>
+            <li class="flex items-center">
+              <i class="fab fa-github text-green-700 text-xl mr-4"></i>
+              <a href="https://github.com/yourgithub" target="_blank" class="text-green-700 hover:underline">github.com/yourgithub</a>
+            </li>
+            <li class="flex items-center">
+              <i class="fab fa-linkedin text-green-700 text-xl mr-4"></i>
+              <a href="https://linkedin.com/in/yourlinkedin" target="_blank" class="text-green-700 hover:underline">linkedin.com/in/yourlinkedin</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <form class="space-y-4">
+            <div>
+              <label for="name" class="block mb-1">Name</label>
+              <input type="text" id="name" class="w-full p-2 border rounded">
+            </div>
+            <div>
+              <label for="email" class="block mb-1">Email</label>
+              <input type="email" id="email" class="w-full p-2 border rounded">
+            </div>
+            <div>
+              <label for="message" class="block mb-1">Message</label>
+              <textarea id="message" rows="4" class="w-full p-2 border rounded"></textarea>
+            </div>
+            <button type="submit" class="bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-full transition">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-8 mt-12 text-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex justify-center space-x-6 mb-4">
+        <a href="https://github.com/yourgithub" target="_blank" class="hover:text-green-300">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+        <a href="https://linkedin.com/in/yourlinkedin" target="_blank" class="hover:text-green-300">
+          <i class="fab fa-linkedin text-2xl"></i>
+        </a>
+        <a href="mailto:peter@example.com" class="hover:text-green-300">
+          <i class="fas fa-envelope text-2xl"></i>
+        </a>
+      </div>
+      <p>© 2025 Peter McGuinness. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
