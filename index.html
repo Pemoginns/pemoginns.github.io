@@ -295,13 +295,13 @@ body {
 .field-label { font-family: var(--mono); font-size: 0.65rem; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 6px; }
 .field {
   width: 100%; padding: 11px 14px; margin-bottom: 14px;
-  background: #0f0f0f; border: 1px solid var(--border);
+  background: #1a1a1a; border: 1px solid var(--border2);
   border-radius: var(--r); color: var(--text); font-family: var(--font);
   font-size: 0.875rem; outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 2px 8px rgba(0,0,0,0.4);
 }
-.field:focus { border-color: #3a3a3a; box-shadow: 0 0 0 3px rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.4); }
+.field:focus { background: #1e1e1e; border-color: #4a4a4a; box-shadow: 0 0 0 3px rgba(255,255,255,0.06), 0 2px 8px rgba(0,0,0,0.4); }
 textarea.field { height: 96px; resize: none; }
 .form-ok { display: none; align-items: center; gap: 8px; color: #fff; font-size: 0.875rem; padding: 12px 0; }
 
