@@ -66,6 +66,15 @@ body {
 #blob1 { width: 900px; height: 900px; top: -350px; right: -250px; background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 65%); }
 #blob2 { width: 700px; height: 700px; bottom: -100px; left: -200px; background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 65%); }
 
+/* Layer 5: starfield game canvas */
+#starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+#game-flash {
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none; background: transparent;
+}
+#game-flash.hit { animation: flashRed 0.5s ease-out; }
+@keyframes flashRed { 0% { background: rgba(255,60,60,0.28); } 100% { background: transparent; } }
+
 /* ── Scroll progress ─────────────────────────────────── */
 #bar {
   position: fixed; top: 0; left: 0; height: 1px; width: 0%;
@@ -102,6 +111,14 @@ body {
 .nav-icons a { color: var(--text3); font-size: 0.95rem; text-decoration: none; transition: color 0.2s; }
 .nav-icons a:hover { color: #fff; }
 
+.nav-score {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--text3);
+  letter-spacing: 0.06em; display: flex; align-items: center; gap: 7px;
+  transition: color 0.3s;
+}
+.nav-score i { font-size: 0.75rem; }
+.nav-score.scored { color: #7ec8ff; }
+
 /* ── Reveal ──────────────────────────────────────────── */
 .r { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1); }
 .r.in { opacity: 1; transform: none; }
@@ -125,6 +142,31 @@ body {
   display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
 }
 .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--text3); display: block; }
+
+.hero-name-row { display: flex; align-items: center; gap: 22px; }
+
+#ship-box {
+  width: 64px; height: 64px; flex-shrink: 0;
+  border: 5px solid #fff; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 0 24px rgba(255,255,255,0.1), inset 0 0 12px rgba(255,255,255,0.05);
+  cursor: pointer; transition: box-shadow 0.3s, border-color 0.3s;
+}
+#ship-box.armed { border-color: #7ec8ff; box-shadow: 0 0 32px rgba(126,200,255,0.4), inset 0 0 12px rgba(126,200,255,0.15); }
+#ship-box i { color: #fff; font-size: 1.7rem; transform: rotate(-45deg); }
+
+#ship-cursor {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+  width: 30px; height: 30px; transform: translate(-100px,-100px);
+  display: flex; align-items: center; justify-content: center;
+  filter: drop-shadow(0 0 6px rgba(126,200,255,0.85));
+  opacity: 0; transition: opacity 0.15s;
+}
+#ship-cursor.active { opacity: 1; }
+#ship-cursor i { color: #fff; font-size: 1.5rem; transform: rotate(-45deg); }
+body.piloting, body.piloting * { cursor: none !important; }
+
 .hero-h1 {
   font-size: clamp(3.2rem, 7.5vw, 6rem);
   font-weight: 700; line-height: 1.0; letter-spacing: -0.035em;
@@ -322,11 +364,13 @@ textarea.field { height: 96px; resize: none; }
 @media(max-width:860px){
   #nav { padding: 0 20px; }
   .nav-links { display: none; }
+  .nav-score { display: none; }
   #hero, .sec { padding-left: 20px; padding-right: 20px; }
   .proj-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   #footer { flex-direction: column; gap: 14px; text-align: center; }
+  #ship-box { display: none; }
 }
 </style>
 </head>
@@ -338,7 +382,10 @@ textarea.field { height: 96px; resize: none; }
 <div id="vignette"></div>
 <div id="blob1"></div>
 <div id="blob2"></div>
+<canvas id="starfield"></canvas>
+<div id="game-flash"></div>
 <div id="bar"></div>
+<div id="ship-cursor"><i class="fas fa-rocket"></i></div>
 
 <!-- Nav -->
 <nav id="nav">
@@ -348,6 +395,7 @@ textarea.field { height: 96px; resize: none; }
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </div>
+  <div class="nav-score" id="nav-score"><i class="fas fa-bolt"></i>SCORE <span id="score-val">000</span></div>
   <div class="nav-icons">
     <a href="https://github.com/Pemoginns" target="_blank"><i class="fab fa-github"></i></a>
     <a href="https://www.linkedin.com/in/pmmg/" target="_blank"><i class="fab fa-linkedin"></i></a>
@@ -358,9 +406,12 @@ textarea.field { height: 96px; resize: none; }
 <!-- Hero -->
 <div id="hero">
   <div class="hero-eyebrow r">Available for work</div>
-  <h1 class="hero-h1 r d1">
-    Peter<br><span id="typed"></span><span class="cursor"></span>
-  </h1>
+  <div class="hero-name-row">
+    <div id="ship-box" title="Pilot me!"><i class="fas fa-rocket"></i></div>
+    <h1 class="hero-h1 r d1">
+      Peter<br><span id="typed"></span><span class="cursor"></span>
+    </h1>
+  </div>
   <p class="hero-sub r d2">Frontend Developer, focused on maps &amp; geospatial products</p>
   <p class="hero-desc r d3">I build interactive mapping applications and full-stack web apps — from live OpenStreetMap-powered discovery tools to REST APIs and real-time interfaces.</p>
   <div class="hero-ctas r d4">
@@ -565,6 +616,169 @@ document.getElementById('cform').addEventListener('submit', e => {
 window.addEventListener('scroll', () => localStorage.setItem('pm-y', window.scrollY), { passive: true });
 const sy = localStorage.getItem('pm-y');
 if (sy) window.scrollTo(0, +sy);
+
+// ── Space invaders background game ─────────────────────
+(function () {
+  const canRun = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  const shipBox = document.getElementById('ship-box');
+  const shipCursor = document.getElementById('ship-cursor');
+  const scoreEl = document.getElementById('score-val');
+  const navScore = document.getElementById('nav-score');
+  const flashEl = document.getElementById('game-flash');
+
+  let W, H;
+  function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const STAR_COUNT = 140;
+  const ROCK_CHANCE = 0.35;
+
+  function makeStar() {
+    const isRock = Math.random() < ROCK_CHANCE;
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      speed: 0.15 + Math.random() * 0.35,
+      isRock,
+      size: isRock ? 5 + Math.random() * 4 : 2,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.02,
+    };
+  }
+
+  const stars = [];
+  for (let i = 0; i < STAR_COUNT; i++) stars.push(makeStar());
+
+  let lasers = [];
+  let score = 0;
+  let piloting = false;
+  const mouse = { x: -999, y: -999 };
+
+  function updateScore() {
+    scoreEl.textContent = String(score).padStart(3, '0');
+    navScore.classList.toggle('scored', score > 0);
+  }
+
+  function resetGame() {
+    score = 0;
+    lasers = [];
+    stars.forEach(s => {
+      s.y = -Math.random() * H;
+      s.x = Math.random() * W;
+      s.isRock = Math.random() < ROCK_CHANCE;
+      s.size = s.isRock ? 5 + Math.random() * 4 : 2;
+    });
+    updateScore();
+  }
+
+  if (canRun) {
+    shipBox.addEventListener('mouseenter', () => {
+      piloting = true;
+      document.body.classList.add('piloting');
+      shipCursor.classList.add('active');
+      shipBox.classList.add('armed');
+    });
+
+    document.addEventListener('mousemove', e => {
+      mouse.x = e.clientX; mouse.y = e.clientY;
+      if (piloting) shipCursor.style.transform = `translate(${mouse.x - 15}px, ${mouse.y - 15}px)`;
+    });
+
+    // Deactivate piloting when the mouse leaves the browser window entirely
+    document.addEventListener('mouseout', e => {
+      if (!e.relatedTarget) {
+        piloting = false;
+        document.body.classList.remove('piloting');
+        shipCursor.classList.remove('active');
+        shipBox.classList.remove('armed');
+      }
+    });
+
+    document.addEventListener('click', () => {
+      if (!piloting) return;
+      lasers.push({ x: mouse.x, y: mouse.y });
+    });
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+
+    stars.forEach(s => {
+      s.y += s.speed;
+      if (s.isRock) s.angle += s.spin;
+      if (s.y > H + 20) {
+        s.y = -10; s.x = Math.random() * W;
+        s.isRock = Math.random() < ROCK_CHANCE;
+        s.size = s.isRock ? 5 + Math.random() * 4 : 2;
+      }
+      if (s.isRock) {
+        ctx.save();
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.angle);
+        ctx.fillStyle = '#8a8a8a';
+        ctx.beginPath();
+        const spikes = 6;
+        for (let i = 0; i < spikes; i++) {
+          const r = s.size * (0.7 + (i % 2) * 0.3);
+          const a = (i / spikes) * Math.PI * 2;
+          ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    });
+
+    lasers = lasers.filter(l => l.y > -20);
+    lasers.forEach(l => {
+      l.y -= 9;
+      ctx.strokeStyle = 'rgba(126,200,255,0.9)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(l.x, l.y);
+      ctx.lineTo(l.x, l.y + 14);
+      ctx.stroke();
+    });
+
+    lasers.forEach(l => {
+      stars.forEach(s => {
+        if (s.isRock && Math.abs(s.x - l.x) < s.size + 3 && Math.abs(s.y - l.y) < s.size + 8) {
+          s.isRock = false;
+          s.size = 2;
+          s.y = -10; s.x = Math.random() * W;
+          l.y = -999;
+          score++;
+          updateScore();
+        }
+      });
+    });
+
+    if (piloting) {
+      for (const s of stars) {
+        if (s.isRock && Math.hypot(s.x - mouse.x, s.y - mouse.y) < s.size + 14) {
+          resetGame();
+          flashEl.classList.remove('hit');
+          void flashEl.offsetWidth;
+          flashEl.classList.add('hit');
+          break;
+        }
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  updateScore();
+  requestAnimationFrame(loop);
+})();
 </script>
 </body>
 </html>
